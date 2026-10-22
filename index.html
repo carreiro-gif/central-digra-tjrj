@@ -10,6 +10,23 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
 
+    <!-- Favicon & PWA Icons for Desktop Shortcuts, Taskbar and Pinning -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Theme & Standalone PWA Meta Tags -->
+    <meta name="theme-color" content="#002F6C" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="DIGRA TJRJ" />
+    <meta name="application-name" content="DIGRA TJRJ" />
+    <meta name="msapplication-TileColor" content="#002F6C" />
+    <meta name="msapplication-TileImage" content="/icon-192.png" />
+
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -167,6 +184,20 @@
               <span id="headerClock" class="text-xs font-mono font-medium text-slate-100 tabular-nums">--:--:--</span>
               <span id="headerDate" class="text-[11px] text-amber-200/90 font-medium">Carregando...</span>
             </div>
+
+            <!-- Install Shortcut / App Button -->
+            <button 
+              id="btnInstallApp"
+              type="button" 
+              class="inline-flex items-center gap-2 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-white bg-blue-500/20 hover:bg-blue-500/30 border border-blue-400/40 rounded-xl transition-all duration-150 shadow-sm cursor-pointer active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-300/50"
+              title="Como fixar o ícone oficial no navegador ou criar atalho na área de trabalho do PC"
+            >
+              <svg class="w-4 h-4 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              <span class="hidden sm:inline">Criar Atalho / Ícone</span>
+              <span class="sm:hidden">Atalho</span>
+            </button>
 
             <!-- Manage Links Button (Acionamento 100% confiável via modal direto) -->
             <button 
@@ -499,6 +530,192 @@
           </div>
         </div>
 
+    <!-- SHORTCUT & APP ICON MODAL -->
+    <div id="shortcutModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs transition-opacity duration-200 overflow-y-auto">
+      <div class="bg-white border-2 border-[#002F6C] rounded-2xl shadow-2xl max-w-2xl w-full my-8 p-6 sm:p-7 flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-150">
+        
+        <!-- Modal Header -->
+        <div class="flex items-start justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-3.5">
+            <div class="w-13 h-13 rounded-2xl bg-[#002F6C] border-2 border-amber-300/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
+              <img src="/icon.svg" alt="Ícone Oficial DIGRA" class="w-full h-full object-contain" />
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900">Ícone do Site & Atalho no Computador</h3>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-[#002F6C] border border-blue-200">
+                  TJRJ • DIGRA
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Como fixar na barra do navegador ou criar atalho na área de trabalho com o ícone oficial
+              </p>
+            </div>
+          </div>
+
+          <button 
+            type="button" 
+            id="btnCloseShortcutX" 
+            class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+            title="Fechar"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Scrollable Modal Content -->
+        <div class="flex-1 overflow-y-auto py-5 pr-1 space-y-5 text-slate-700 text-xs sm:text-sm">
+          
+          <!-- Native Install Trigger Box -->
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50/60 border border-blue-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-2xs">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-[#002F6C] text-white flex items-center justify-center shrink-0 shadow-xs">
+                <svg class="w-5 h-5 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900 text-sm">Instalação Direta (1 Clique)</h4>
+                <p class="text-xs text-slate-600">Se o seu navegador suportar, instale direto como aplicativo no Windows.</p>
+              </div>
+            </div>
+
+            <button 
+              type="button" 
+              id="btnTriggerNativeInstall" 
+              class="w-full sm:w-auto px-4 py-2 bg-[#002F6C] hover:bg-[#001f48] text-white font-bold rounded-xl text-xs shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95 shrink-0"
+            >
+              <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+              <span>Instalar Aplicativo</span>
+            </button>
+          </div>
+
+          <!-- Step by Step Guides for Browsers -->
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500">
+              Passo a Passo Manual nos Navegadores (Windows / PC)
+            </h4>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              <!-- Google Chrome Card -->
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="w-6 h-6 rounded-md bg-amber-500/20 text-amber-700 font-bold flex items-center justify-center text-xs">
+                      1
+                    </div>
+                    <span class="font-bold text-slate-900 text-sm">No Google Chrome</span>
+                  </div>
+                  <ol class="space-y-2 text-xs text-slate-600 list-decimal list-inside pl-1 leading-relaxed">
+                    <li>Clique nos <strong>3 pontinhos (⋮)</strong> no canto superior direito do Chrome.</li>
+                    <li>Passe o mouse em <strong>"Salvar e compartilhar"</strong> (ou <em>"Mais ferramentas"</em>).</li>
+                    <li>Clique em <strong>"Criar atalho..."</strong> ou <strong>"Instalar página como app..."</strong>.</li>
+                    <li>Marque a opção <strong>"Abrir como janela"</strong> e clique em <strong>Criar</strong>.</li>
+                  </ol>
+                </div>
+                <div class="mt-3 pt-2.5 border-t border-slate-200/80 text-[11px] text-emerald-700 font-medium flex items-center gap-1.5">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span>O ícone oficial da DIGRA irá para a Área de Trabalho!</span>
+                </div>
+              </div>
+
+              <!-- Microsoft Edge Card -->
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="w-6 h-6 rounded-md bg-blue-500/20 text-[#002F6C] font-bold flex items-center justify-center text-xs">
+                      2
+                    </div>
+                    <span class="font-bold text-slate-900 text-sm">No Microsoft Edge</span>
+                  </div>
+                  <ol class="space-y-2 text-xs text-slate-600 list-decimal list-inside pl-1 leading-relaxed">
+                    <li>Clique nos <strong>3 pontinhos (...)</strong> no canto superior direito do Edge.</li>
+                    <li>Passe o mouse na opção <strong>"Aplicativos"</strong>.</li>
+                    <li>Clique em <strong>"Instalar este site como um aplicativo"</strong>.</li>
+                    <li>Confirme em <strong>"Instalar"</strong> e selecione <em>"Fixar na barra de tarefas"</em> e <em>"Criar atalho na área de trabalho"</em>.</li>
+                  </ol>
+                </div>
+                <div class="mt-3 pt-2.5 border-t border-slate-200/80 text-[11px] text-emerald-700 font-medium flex items-center gap-1.5">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span>Fica fixado como programa nativo na barra do Windows!</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Where to customize the icon in code -->
+          <div class="bg-amber-50/70 border border-amber-200 rounded-2xl p-4 space-y-3">
+            <div class="flex items-center gap-2 text-amber-900 font-bold text-xs uppercase tracking-wide">
+              <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span>Como Trocar a Imagem do Ícone no Código / Repositório</span>
+            </div>
+            
+            <p class="text-xs text-slate-700 leading-relaxed">
+              Para você colocar a imagem ou logo da DIGRA personalizada como o ícone definitivo do site e dos atalhos no GitHub e na Vercel, o sistema agora já possui a pasta oficial <strong><code class="bg-amber-100 text-amber-900 px-1.5 py-0.5 rounded font-mono">public/</code></strong> configurada com os seguintes arquivos:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <div class="bg-white border border-amber-200 p-2.5 rounded-xl flex items-center justify-between">
+                <div>
+                  <span class="font-mono font-bold text-[#002F6C]">public/icon-512.png</span>
+                  <p class="text-[10px] text-slate-500">Ícone principal (Windows e Celular)</p>
+                </div>
+                <a href="/icon-512.png" target="_blank" class="text-[11px] text-[#002F6C] font-semibold hover:underline">Abrir</a>
+              </div>
+
+              <div class="bg-white border border-amber-200 p-2.5 rounded-xl flex items-center justify-between">
+                <div>
+                  <span class="font-mono font-bold text-[#002F6C]">public/icon.svg</span>
+                  <p class="text-[10px] text-slate-500">Vetor em alta definição (Navegadores)</p>
+                </div>
+                <a href="/icon.svg" target="_blank" class="text-[11px] text-[#002F6C] font-semibold hover:underline">Abrir</a>
+              </div>
+
+              <div class="bg-white border border-amber-200 p-2.5 rounded-xl flex items-center justify-between">
+                <div>
+                  <span class="font-mono font-bold text-[#002F6C]">public/favicon.ico</span>
+                  <p class="text-[10px] text-slate-500">Ícone da aba clássica</p>
+                </div>
+                <a href="/favicon.ico" target="_blank" class="text-[11px] text-[#002F6C] font-semibold hover:underline">Abrir</a>
+              </div>
+
+              <div class="bg-white border border-amber-200 p-2.5 rounded-xl flex items-center justify-between">
+                <div>
+                  <span class="font-mono font-bold text-[#002F6C]">public/manifest.json</span>
+                  <p class="text-[10px] text-slate-500">Configuração de atalho PWA</p>
+                </div>
+                <a href="/manifest.json" target="_blank" class="text-[11px] text-[#002F6C] font-semibold hover:underline">Abrir</a>
+              </div>
+            </div>
+
+            <p class="text-xs text-slate-600 leading-relaxed bg-white/70 p-2.5 rounded-xl border border-amber-200/80">
+              💡 <strong>Dica simples:</strong> Se você quiser usar a sua própria imagem PNG, basta renomeá-la para <strong>icon-512.png</strong> e substituir o arquivo correspondente dentro da pasta <strong>public/</strong> do seu projeto antes de subir para a Vercel ou GitHub. O navegador passará a usar automaticamente a sua imagem!
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="pt-4 border-t border-slate-200 flex items-center justify-end">
+          <button 
+            type="button" 
+            id="btnOkShortcut" 
+            class="px-5 py-2.5 text-xs font-bold text-white bg-[#002F6C] hover:bg-[#001f48] rounded-xl transition-all shadow-sm cursor-pointer active:scale-95"
+          >
+            Entendi, Fechar
+          </button>
+        </div>
+
       </div>
     </div>
 
@@ -594,6 +811,14 @@
         const jsonPreviewSection = document.getElementById('jsonPreviewSection');
         const jsonExportTextarea = document.getElementById('jsonExportTextarea');
         const btnCopyFromTextarea = document.getElementById('btnCopyFromTextarea');
+
+        // Shortcut & App Icon Modal Elements
+        const btnInstallApp = document.getElementById('btnInstallApp');
+        const shortcutModal = document.getElementById('shortcutModal');
+        const btnCloseShortcutX = document.getElementById('btnCloseShortcutX');
+        const btnOkShortcut = document.getElementById('btnOkShortcut');
+        const btnTriggerNativeInstall = document.getElementById('btnTriggerNativeInstall');
+        let deferredInstallPrompt = null;
 
         // Digital Clock / Date
         function updateClock() {
@@ -1091,6 +1316,61 @@
 
         btnCloseManageX.addEventListener('click', closeManageModal);
         btnCancelManage.addEventListener('click', closeManageModal);
+
+        // Shortcut Modal & PWA Installation handlers
+        function openShortcutModal() {
+          if (shortcutModal) {
+            shortcutModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+          }
+        }
+
+        function closeShortcutModal() {
+          if (shortcutModal) {
+            shortcutModal.classList.add('hidden');
+            document.body.style.overflow = '';
+          }
+        }
+
+        if (btnInstallApp) {
+          btnInstallApp.addEventListener('click', function(e) {
+            e.preventDefault();
+            openShortcutModal();
+          });
+        }
+
+        if (btnCloseShortcutX) btnCloseShortcutX.addEventListener('click', closeShortcutModal);
+        if (btnOkShortcut) btnOkShortcut.addEventListener('click', closeShortcutModal);
+        if (shortcutModal) {
+          shortcutModal.addEventListener('click', function(e) {
+            if (e.target === shortcutModal) closeShortcutModal();
+          });
+        }
+
+        // PWA Install prompt intercept
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredInstallPrompt = e;
+          if (btnTriggerNativeInstall) {
+            btnTriggerNativeInstall.classList.add('ring-2', 'ring-amber-400');
+          }
+        });
+
+        if (btnTriggerNativeInstall) {
+          btnTriggerNativeInstall.addEventListener('click', async function() {
+            if (deferredInstallPrompt) {
+              deferredInstallPrompt.prompt();
+              const { outcome } = await deferredInstallPrompt.userChoice;
+              if (outcome === 'accepted') {
+                showToast('Aplicativo instalado com sucesso no seu computador!', 'success');
+                closeShortcutModal();
+              }
+              deferredInstallPrompt = null;
+            } else {
+              showToast('Para fixar, use os 3 pontinhos do Chrome/Edge conforme o passo a passo abaixo!', 'info');
+            }
+          });
+        }
 
         // Helper: Process and optimize image file (.png, .jpg, .ico, .svg) for storage
         function processIconFile(file, callback) {

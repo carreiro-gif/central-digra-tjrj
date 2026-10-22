@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient: TJRJ Navy -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#003577"/>
+      <stop offset="50%" stop-color="#002353"/>
+      <stop offset="100%" stop-color="#001433"/>
+    </linearGradient>
+
+    <!-- Gold Accent Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF2B2"/>
+      <stop offset="40%" stop-color="#E5BE4A"/>
+      <stop offset="100%" stop-color="#9E760E"/>
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Rounded App Icon Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+
+  <!-- Gold Border Ring -->
+  <rect x="14" y="14" width="484" height="484" rx="98" fill="none" stroke="url(#goldGrad)" stroke-width="8" opacity="0.95"/>
+  <rect x="26" y="26" width="460" height="460" rx="86" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.2"/>
+
+  <!-- Main Insignia Group with Shadow -->
+  <g filter="url(#shadow)" transform="translate(0, -10)">
+    
+    <!-- Heraldic Scales of Justice (Balança TJRJ) -->
+    <!-- Center Column & Finial -->
+    <circle cx="256" cy="115" r="14" fill="url(#goldGrad)"/>
+    <path d="M251 125 L261 125 L259 295 L253 295 Z" fill="url(#goldGrad)"/>
+    
+    <!-- Base -->
+    <path d="M206 295 L306 295 L316 308 L196 308 Z" fill="url(#goldGrad)"/>
+    <rect x="180" y="308" width="152" height="12" rx="6" fill="url(#goldGrad)"/>
+
+    <!-- Cross Beam -->
+    <path d="M120 160 Q 256 142 392 160 Q 256 150 120 160 Z" fill="url(#goldGrad)"/>
+    <circle cx="256" cy="153" r="8" fill="#FFF2B2"/>
+    <circle cx="120" cy="160" r="6" fill="url(#goldGrad)"/>
+    <circle cx="392" cy="160" r="6" fill="url(#goldGrad)"/>
+
+    <!-- Left Pan Strings & Plate -->
+    <line x1="120" y1="160" x2="88" y2="236" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="120" y1="160" x2="152" y2="236" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M76 236 Q 120 262 164 236 Z" fill="url(#goldGrad)"/>
+    
+    <!-- Right Pan Strings & Plate -->
+    <line x1="392" y1="160" x2="360" y2="236" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="392" y1="160" x2="424" y2="236" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M348 236 Q 392 262 436 236 Z" fill="url(#goldGrad)"/>
+  </g>
+
+  <!-- Typography Banner: TJRJ • DIGRA -->
+  <!-- Background Badge for Text -->
+  <rect x="76" y="348" width="360" height="72" rx="20" fill="#00193E" stroke="url(#goldGrad)" stroke-width="3"/>
+  <rect x="80" y="352" width="352" height="64" rx="16" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.15"/>
+
+  <!-- DIGRA Main Title -->
+  <text x="256" y="394" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="34" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="4">
+    DIGRA
+  </text>
+  
+  <!-- TJRJ Subtitle -->
+  <text x="256" y="446" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="16" font-weight="700" fill="#E5BE4A" text-anchor="middle" letter-spacing="3">
+    TRIBUNAL DE JUSTIÇA DO RJ
+  </text>
+</svg>

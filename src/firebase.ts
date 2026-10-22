@@ -320,3 +320,51 @@ export async function restoreDefaultLinksToFirestore(): Promise<void> {
 
   await batch.commit();
 }
+
+/**
+ * Escuta em tempo real o logotipo personalizado da DIGRA na coleção "config/header"
+ */
+export function subscribeToHeaderLogo(
+  onUpdate: (logoDataUrl: string | null) => void,
+  onError?: (error: Error) => void
+): () => void {
+  if (!db) return () => {};
+
+  const logoDocRef = doc(db, 'config', 'header-logo');
+  const unsubscribe = onSnapshot(
+    logoDocRef,
+    (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        onUpdate(data.logo || null);
+      } else {
+        onUpdate(null);
+      }
+    },
+    (err) => {
+      console.warn('Erro ao escutar logotipo no Firestore:', err);
+      if (onError) onError(err);
+    }
+  );
+
+  return unsubscribe;
+}
+
+/**
+ * Salva o logotipo com fundo transparente diretamente no Firestore
+ */
+export async function saveHeaderLogoToFirestore(logoDataUrl: string | null): Promise<void> {
+  if (!db) {
+    throw new Error('Firebase não configurado.');
+  }
+
+  const logoDocRef = doc(db, 'config', 'header-logo');
+  if (logoDataUrl) {
+    await setDoc(logoDocRef, {
+      logo: logoDataUrl,
+      updatedAt: new Date().toISOString()
+    }, { merge: true });
+  } else {
+    await deleteDoc(logoDocRef).catch(() => {});
+  }
+}
