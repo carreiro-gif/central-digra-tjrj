@@ -59,53 +59,38 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #94a3b8;
       }
-      /* Estilo Reticulado Institucional DIGRA (Efeito Botão Tátil de Alta Precisão) */
-      .card-reticulado {
-        background-color: #ffffff;
-        background-image: radial-gradient(circle at center, rgba(0, 47, 108, 0.085) 1.25px, transparent 1.25px);
-        background-size: 12px 12px;
-        background-position: 0 0;
-        box-shadow: 
-          0 1px 3px rgba(0, 47, 108, 0.04),
-          0 4px 12px -2px rgba(0, 0, 0, 0.04),
-          inset 0 1px 0 rgba(255, 255, 255, 0.95),
-          inset 0 -2.5px 0 rgba(217, 119, 6, 0.22);
-        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background 0.2s ease;
+      /* Estilo dos Quadros de Sistema DIGRA: Fundo cinza claro (bg-slate-50/50), linha preta fina e nítida, hover branco com borda azul-marinho TJRJ */
+      .card-sistema {
+        background-color: rgba(248, 250, 252, 0.65);
+        border: 1px solid #0f172a; /* Linha preta fina e bem nítida */
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        transition: background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
       }
-      .card-reticulado:hover {
-        background-color: #fffdf9;
-        background-image: radial-gradient(circle at center, rgba(217, 119, 6, 0.14) 1.35px, transparent 1.35px);
-        box-shadow: 
-          0 14px 28px -6px rgba(217, 119, 6, 0.20),
-          0 4px 10px -2px rgba(0, 47, 108, 0.07),
-          inset 0 1px 0 #ffffff,
-          inset 0 -3.5px 0 rgba(217, 119, 6, 0.45);
-        transform: translateY(-4px);
+      .card-sistema:hover {
+        background-color: #ffffff !important; /* Fundo totalmente branco ao passar o mouse */
+        border-color: #002F6C !important; /* Borda azul-marinho institucional do TJRJ mais marcada */
+        box-shadow: 0 0 0 1px #002F6C, 0 8px 20px -4px rgba(0, 47, 108, 0.16) !important;
+        transform: translateY(-2px);
       }
-      .card-reticulado:active {
-        transform: translateY(-1px) scale(0.995);
-        box-shadow: 
-          0 3px 6px -1px rgba(217, 119, 6, 0.15),
-          inset 0 2px 4px rgba(0, 47, 108, 0.06),
-          inset 0 -1px 0 rgba(217, 119, 6, 0.25);
+      .card-sistema:active {
+        transform: translateY(0);
+        box-shadow: 0 0 0 1px #002F6C, 0 2px 6px rgba(0, 47, 108, 0.12);
       }
 
-      /* Reticulado suave para o slot reservado */
-      .slot-reticulado {
-        background-color: rgba(254, 252, 232, 0.35);
-        background-image: radial-gradient(circle at center, rgba(217, 119, 6, 0.10) 1.25px, transparent 1.25px);
-        background-size: 12px 12px;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -2px 0 rgba(217, 119, 6, 0.15);
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+      /* Slot reservado com linha fina e hover azul-marinho */
+      .slot-sistema {
+        background-color: rgba(248, 250, 252, 0.5);
+        border: 1px dashed #334155;
+        transition: background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
       }
-      .slot-reticulado:hover {
-        background-color: rgba(254, 252, 232, 0.7);
-        background-image: radial-gradient(circle at center, rgba(217, 119, 6, 0.16) 1.35px, transparent 1.35px);
-        box-shadow: 0 10px 24px -6px rgba(217, 119, 6, 0.16), inset 0 1px 0 #ffffff, inset 0 -2.5px 0 rgba(217, 119, 6, 0.3);
-        transform: translateY(-3px);
+      .slot-sistema:hover {
+        background-color: #ffffff;
+        border-color: #002F6C;
+        box-shadow: 0 0 0 1px #002F6C, 0 8px 20px -4px rgba(0, 47, 108, 0.14);
+        transform: translateY(-2px);
       }
-      .slot-reticulado:active {
-        transform: translateY(-1px) scale(0.995);
+      .slot-sistema:active {
+        transform: translateY(0);
       }
 
       /* Drag and drop styling */
@@ -114,9 +99,9 @@
         transform: scale(0.97) !important;
       }
       .card-drag-over {
-        border-color: #d97706 !important;
-        box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.35) !important;
-        background-color: #fefce8 !important;
+        border-color: #002F6C !important;
+        box-shadow: 0 0 0 3px rgba(0, 47, 108, 0.35) !important;
+        background-color: #dbeafe !important;
       }
       @media print {
         header, footer, #btnOpenManage, .no-print {
@@ -171,6 +156,12 @@
 
           <!-- Actions / Admin Button -->
           <div class="flex items-center gap-3">
+            <!-- Firebase Firestore Real-time Status Badge -->
+            <div id="firebaseConnectionBadge" class="hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 shadow-xs" title="Status da sincronização em tempo real">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span id="firebaseStatusText">Firestore Conectado</span>
+            </div>
+
             <!-- Digital Clock / Date Badge -->
             <div class="hidden lg:flex flex-col text-right pr-2">
               <span id="headerClock" class="text-xs font-mono font-medium text-slate-100 tabular-nums">--:--:--</span>
@@ -348,7 +339,13 @@
               </svg>
             </div>
             <div>
-              <h2 class="text-lg sm:text-xl font-bold text-slate-900">Gerenciador de Links e Ordem • DIGRA</h2>
+              <div class="flex flex-wrap items-center gap-2">
+                <h2 class="text-lg sm:text-xl font-bold text-slate-900">Gerenciador de Links e Ordem • DIGRA</h2>
+                <span id="modalFirebaseBadge" class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1 shadow-2xs">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                  <span>Firestore: links-central</span>
+                </span>
+              </div>
               <p class="text-xs text-slate-500">Configure os títulos, ícones, URLs e adicione novos sistemas</p>
             </div>
           </div>
@@ -508,91 +505,37 @@
     <!-- Notification Toast -->
     <div id="toastContainer" class="fixed bottom-6 right-6 z-50 pointer-events-none flex flex-col gap-2"></div>
 
-    <!-- VANILLA JAVASCRIPT APPLICATION LOGIC -->
-    <script>
+    <!-- APPLICATION LOGIC WITH FIREBASE FIRESTORE SYNC -->
+    <script type="module">
+      import {
+        isFirebaseConfigured,
+        subscribeToCentralLinks,
+        saveLinksToFirestore,
+        restoreDefaultLinksToFirestore,
+        FACTORY_SYSTEMS
+      } from '/src/firebase.ts';
+
       (function() {
         'use strict';
-
-        // =========================================================================
-        // 1. ESTADO INICIAL ESTÁTICO (URLs OFICIAIS EXATAS E COMPLETAS DA DIGRA)
-        // =========================================================================
-        const FACTORY_SYSTEMS = [
-          {
-            id: 1,
-            icon: "📄",
-            name: "Guias de Remessa",
-            url: "https://digra-guias.vercel.app/",
-            description: "Emissão e controle de guias de remessa de materiais gráficos e documentos.",
-            tag: "Operacional"
-          },
-          {
-            id: 2,
-            icon: "📊",
-            name: "Orçamento Gráfico",
-            url: "https://digra.vercel.app/",
-            description: "Cálculo de orçamentos, cotação de insumos e precificação de tiragens.",
-            tag: "Financeiro"
-          },
-          {
-            id: 3,
-            icon: "🧮",
-            name: "Calculadora de Placas",
-            url: "https://digra.vercel.app/calculadora-placas.html",
-            description: "Dimensionamento técnico de chapas CTP e aproveitamento de formato.",
-            tag: "Pré-Impressão"
-          },
-          {
-            id: 4,
-            icon: "📝",
-            name: "Boletim de Serviço",
-            url: "https://digra-boletim-de-servicos.vercel.app/",
-            description: "Registro diário de ordens de serviço, turnos e acompanhamento operacional.",
-            tag: "Produção"
-          },
-          {
-            id: 5,
-            icon: "📅",
-            name: "Controle Anual de Papéis",
-            url: "https://tjrj-my.sharepoint.com/:x:/r/personal/mendes_alexandre_tjrj_jus_br/Documents/CONTROLE%20ANUAL%20DE%20PAPEIS%20DIGRA%201.xlsx?d=w2bd643d26d0847e6a41c0c57140b23a9&csf=1&web=1&e=NrFs6i",
-            description: "Planilha corporativa de consumo, estoque e projeção anual de bobinas e resmas.",
-            tag: "SharePoint"
-          },
-          {
-            id: 6,
-            icon: "📉",
-            name: "Custos de Produção",
-            url: "https://tjrj-my.sharepoint.com/:x:/r/personal/eduardocarpi_tjrj_jus_br/Documents/DIGRA/SIGA/Planilhas%20de%20Controle/2026/0-0-3b%20Planilha%20de%20Controle%20e%20Custos%20de%20Produ%C3%A7%C3%A3o%202026.xlsx?d=w1b3756bfedca482995806bc4c560cbca&csf=1&web=1&e=JnAMHd",
-            description: "Demonstrativo consolidado de despesas fabris e rateio por comarca no SharePoint.",
-            tag: "SharePoint"
-          },
-          {
-            id: 7,
-            icon: "📋",
-            name: "Serviços Não Codificados",
-            url: "https://trello.com/b/nSviDSGC/solicitacao-de-servicos-graficos-nao-codificados",
-            description: "Quadro Kanban no Trello para solicitação e triagem de serviços gráficos não codificados.",
-            tag: "Trello"
-          },
-          {
-            id: 8,
-            icon: "⚖️",
-            name: "SEI - Processo Administrativo Eletrônico",
-            url: "https://www10.tjrj.jus.br/sei/",
-            description: "Sistema Eletrônico de Informações do TJRJ para gestão de processos e expedientes administrativos.",
-            tag: "TJRJ"
-          }
-        ];
 
         const STORAGE_KEY = 'digra_systems_links';
         const DEFAULT_PASSWORD = '1234';
 
-        // Load systems from localStorage, strictly preserving all user customizations
-        function loadSystems() {
+        // Carrega cache local instantâneo para paint imediato sem layout shift
+        function loadCachedSystems() {
           try {
             const stored = localStorage.getItem(STORAGE_KEY);
             if (stored) {
               const parsed = JSON.parse(stored);
               if (Array.isArray(parsed) && parsed.length > 0) {
+                const hasSei = parsed.some(s => s && s.name && s.name.toLowerCase().includes('sei'));
+                if (!hasSei && parsed.length === 7) {
+                  const seiItem = FACTORY_SYSTEMS.find(s => s.id === 8);
+                  if (seiItem) {
+                    parsed.push(JSON.parse(JSON.stringify(seiItem)));
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed, null, 2));
+                  }
+                }
                 return parsed;
               }
             }
@@ -600,22 +543,28 @@
             console.warn('Carregando links padrão oficiais da DIGRA:', e);
           }
           const defaults = JSON.parse(JSON.stringify(FACTORY_SYSTEMS));
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults, null, 2));
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults, null, 2));
+          } catch {}
           return defaults;
         }
 
-        function saveSystems(systems) {
+        // Persiste sistemas no Firestore (se configurado) e no cache local
+        async function persistSystems(systems) {
           try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(systems, null, 2));
-            return true;
           } catch (e) {
-            console.error('Erro ao salvar no localStorage:', e);
-            return false;
+            console.warn('Erro ao salvar no cache local:', e);
           }
+
+          if (isFirebaseConfigured) {
+            await saveLinksToFirestore(systems);
+          }
+          return true;
         }
 
         // Active State
-        let currentSystems = loadSystems();
+        let currentSystems = loadCachedSystems();
         let searchQuery = '';
         let draggedIndex = null;
 
@@ -849,12 +798,12 @@
         // Helper: Render icon either as image or emoji/text
         function renderIconMarkup(iconValue, extraImgClass = '') {
           if (!iconValue) {
-            return '<span class="text-3xl select-none leading-none">📄</span>';
+            return '<span class="text-2xl select-none leading-none">📄</span>';
           }
           if (isImageIcon(iconValue)) {
-            return `<img src="${escapeHtml(iconValue)}" alt="Ícone" class="w-full h-full object-contain select-none pointer-events-none rounded-xl ${extraImgClass}" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'text-3xl select-none leading-none\\'>📄</span>';">`;
+            return `<img src="${escapeHtml(iconValue)}" alt="Ícone" class="w-full h-full object-contain select-none pointer-events-none rounded-lg ${extraImgClass}" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'text-2xl select-none leading-none\\'>📄</span>';">`;
           }
-          return `<span class="text-3xl select-none leading-none">${escapeHtml(iconValue)}</span>`;
+          return `<span class="text-2xl select-none leading-none">${escapeHtml(iconValue)}</span>`;
         }
 
         // =========================================================================
@@ -882,38 +831,37 @@
 
           emptySearchState.classList.add('hidden');
 
-          // Render system cards with golden border, centered text, full-card click, and NO button shown
+          // Render system cards with fine black line, bg-slate-50/50, white hover with marked TJRJ navy border, operational micro-indicator and rounded-xl icon boxes
           let cardsHtml = filtered.map((item, idx) => {
             return `
               <a 
                 href="${escapeHtml(item.url)}" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                class="system-card card-reticulado group relative flex flex-col items-center justify-between border-2 border-amber-300/90 hover:border-amber-500 rounded-2xl p-6 min-h-[270px] text-center cursor-pointer block no-underline text-inherit select-none"
+                class="system-card card-sistema group relative flex flex-col items-center justify-between rounded-2xl p-6 min-h-[270px] text-center cursor-pointer block no-underline text-inherit select-none"
                 draggable="true"
                 data-id="${item.id}"
                 data-index="${idx}"
                 title="Clique em qualquer lugar do quadro para acessar ${escapeHtml(item.name)}"
               >
                 
-                <!-- Card Top Row: Order Badge + Subtle Link Icon + Drag Grip -->
-                <div class="w-full flex items-center justify-between mb-2">
+                <!-- Card Top Row: Order Badge + Micro-indicador Operacional + Drag Grip -->
+                <div class="w-full flex items-center justify-between gap-2 mb-2">
                   <!-- Order Number -->
-                  <span class="text-[11px] font-bold text-amber-800 bg-amber-50/90 border border-amber-200/90 px-2.5 py-0.5 rounded-md font-mono shadow-2xs" title="Posição na tela">
+                  <span class="text-[11px] font-bold text-slate-600 bg-white border border-slate-200 px-2 py-0.5 rounded-md font-mono shadow-2xs" title="Posição na tela">
                     #${idx + 1}
                   </span>
 
-                  <div class="flex items-center gap-1">
-                    <!-- Subtle External Link Icon -->
-                    <span class="text-slate-300 group-hover:text-amber-600 transition-colors p-1" title="Abre em nova aba">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                      </svg>
-                    </span>
+                  <div class="flex items-center gap-1.5">
+                    <!-- Micro-indicador de Status do Servidor (Bolinha verde estável + texto discreto) -->
+                    <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/90 border border-slate-200 text-[10px] text-slate-500 font-medium select-none shadow-2xs" title="Servidor ativo: Operacional">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                      <span>Operacional</span>
+                    </div>
 
                     <!-- Drag Handle Icon -->
-                    <div class="drag-handle text-slate-300 hover:text-amber-600 transition-colors cursor-grab active:cursor-grabbing p-1" title="Arraste para reorganizar a ordem">
-                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="drag-handle text-slate-400 hover:text-[#002F6C] transition-colors cursor-grab active:cursor-grabbing p-0.5" title="Arraste para reorganizar a ordem">
+                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                         <circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/>
                         <circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>
                         <circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/>
@@ -922,15 +870,15 @@
                   </div>
                 </div>
 
-                <!-- Center Content: Icon + Name + Description -->
-                <div class="flex flex-col items-center justify-center my-auto w-full py-2">
-                  <!-- Icon / Emoji / Image Container com halo dourado elevado -->
-                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-b from-amber-50 to-slate-50 border border-amber-200/90 flex items-center justify-center text-3xl shadow-xs group-hover:scale-105 group-hover:border-amber-400 group-hover:shadow-md transition-all duration-200 mb-3 overflow-hidden p-1.5">
+                <!-- Center Content: Icon Box (rounded-xl, fundo azul suave, borda fina) + Name + Description -->
+                <div class="flex flex-col items-center justify-center my-auto w-full py-1">
+                  <!-- Quadrado Padronizado com cantos arredondados (rounded-xl), fundo azul suave e borda fina -->
+                  <div class="w-14 h-14 rounded-xl bg-blue-50/80 border border-blue-200/70 flex items-center justify-center shrink-0 mb-3 shadow-xs transition-all duration-200 group-hover:bg-blue-100/70 group-hover:border-blue-300 p-2 overflow-hidden">
                     ${renderIconMarkup(item.icon)}
                   </div>
 
                   <!-- System Title (CENTRALIZADO) -->
-                  <h3 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-[#002F6C] transition-colors leading-snug text-center px-1">
+                  <h3 class="text-base font-bold text-slate-900 group-hover:text-[#002F6C] transition-colors leading-snug text-center px-1">
                     ${escapeHtml(item.name)}
                   </h3>
 
@@ -940,8 +888,8 @@
                   </p>
                 </div>
 
-                <!-- Card Bottom Tactile Hint (Sem botão solto, feedback tátil moderno) -->
-                <div class="w-full pt-2 flex items-center justify-center text-[11px] font-semibold text-slate-400 group-hover:text-amber-800 transition-all duration-150">
+                <!-- Card Bottom Subtle Action Hint -->
+                <div class="w-full pt-2 flex items-center justify-center text-[11px] font-semibold text-slate-400 group-hover:text-[#002F6C] transition-all duration-150">
                   <span class="inline-flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity">
                     <span>Acessar sistema</span>
                     <span class="text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
@@ -957,15 +905,15 @@
             cardsHtml += `
               <div 
                 id="btnReservedSlot"
-                class="slot-reticulado group relative flex flex-col items-center justify-between border-2 border-dashed border-amber-300/80 hover:border-amber-500 rounded-2xl p-6 cursor-pointer min-h-[270px] text-center"
+                class="slot-sistema group relative flex flex-col items-center justify-between rounded-2xl p-6 cursor-pointer min-h-[270px] text-center"
                 title="Clique para adicionar um novo sistema nesta posição reservada"
               >
                 <!-- Top Badge -->
                 <div class="w-full flex items-center justify-between gap-2 mb-3">
-                  <span class="text-[11px] font-bold text-amber-800 bg-amber-100/70 border border-amber-300 px-2 py-0.5 rounded-md font-mono">
+                  <span class="text-[11px] font-bold text-slate-600 bg-white border border-slate-200 px-2 py-0.5 rounded-md font-mono shadow-2xs">
                     #${currentSystems.length + 1}
                   </span>
-                  <span class="text-[11px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">
+                  <span class="text-[11px] font-semibold text-slate-500 bg-white/90 border border-slate-200 px-2 py-0.5 rounded-md">
                     Futura Expansão
                   </span>
                   <div class="w-4"></div>
@@ -973,12 +921,12 @@
 
                 <!-- Center Content -->
                 <div class="flex flex-col items-center justify-center my-auto">
-                  <div class="w-14 h-14 rounded-2xl bg-amber-100/70 border border-amber-300 text-amber-700 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-xs">
+                  <div class="w-14 h-14 rounded-xl bg-blue-50/80 border border-blue-200/70 text-[#002F6C] flex items-center justify-center text-xl mb-3 group-hover:scale-105 group-hover:bg-blue-100/70 transition-all shadow-xs">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/>
                     </svg>
                   </div>
-                  <h3 class="text-base font-bold text-slate-800 group-hover:text-amber-900 transition-colors">
+                  <h3 class="text-base font-bold text-slate-800 group-hover:text-[#002F6C] transition-colors">
                     Espaço Reservado
                   </h3>
                   <p class="text-xs text-slate-500 mt-1 max-w-[200px] leading-relaxed">
@@ -987,8 +935,8 @@
                 </div>
 
                 <!-- Action Button -->
-                <div class="w-full pt-4 mt-2 border-t border-amber-200/50 flex items-center justify-center">
-                  <span class="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-bold text-amber-800 bg-amber-100/80 hover:bg-amber-200/80 border border-amber-300/80 rounded-xl transition-all shadow-xs group-hover:shadow-sm">
+                <div class="w-full pt-4 mt-2 border-t border-slate-200/70 flex items-center justify-center">
+                  <span class="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-bold text-white bg-[#002F6C] hover:bg-[#001f48] rounded-xl transition-all shadow-xs group-hover:shadow-md">
                     <span>+ Adicionar Sistema</span>
                   </span>
                 </div>
@@ -1072,9 +1020,12 @@
             currentSystems.splice(targetIndex, 0, movedItem);
             
             // Save state and re-render
-            saveSystems(currentSystems);
             renderDashboard();
-            showToast('Ordem dos cartões atualizada com sucesso!', 'success');
+            persistSystems(currentSystems).then(() => {
+              showToast('Ordem dos cartões sincronizada em tempo real!', 'success');
+            }).catch(err => {
+              console.warn('Erro ao salvar ordem no Firestore:', err);
+            });
           }
           return false;
         }
@@ -1217,11 +1168,11 @@
           processIconFile(file, function(dataUrl) {
             syncFormInputsToCurrentSystems();
             currentSystems[idx].icon = dataUrl;
-            saveSystems(currentSystems);
+            persistSystems(currentSystems).catch(console.error);
             renderDashboard();
             renderManageForm();
             updateJsonExportPreview();
-            showToast(`Ícone do sistema #${idx + 1} atualizado e salvo!`, 'success');
+            showToast(`Ícone do sistema #${idx + 1} atualizado e sincronizado!`, 'success');
           });
         }
 
@@ -1392,7 +1343,7 @@
               const idx = parseInt(this.getAttribute('data-index'), 10);
               syncFormInputsToCurrentSystems();
               currentSystems[idx].icon = '📄';
-              saveSystems(currentSystems);
+              persistSystems(currentSystems).catch(console.error);
               renderDashboard();
               renderManageForm();
               updateJsonExportPreview();
@@ -1490,7 +1441,7 @@
           return updated;
         }
 
-        btnSaveManage.addEventListener('click', function() {
+        btnSaveManage.addEventListener('click', async function() {
           const updated = getUpdatedSystemsFromForm();
           
           for (let i = 0; i < updated.length; i++) {
@@ -1505,20 +1456,58 @@
           }
 
           currentSystems = updated;
-          saveSystems(currentSystems);
-          renderDashboard();
-          closeManageModal();
-          showToast('Alterações salvas com sucesso no navegador!', 'success');
+          const originalHtml = btnSaveManage.innerHTML;
+          btnSaveManage.disabled = true;
+          btnSaveManage.innerHTML = `
+            <svg class="w-4 h-4 animate-spin -ml-0.5 mr-1 text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>Salvando no Firestore...</span>
+          `;
+
+          try {
+            await persistSystems(currentSystems);
+            renderDashboard();
+            closeManageModal();
+            if (isFirebaseConfigured) {
+              showToast('Alterações salvas e sincronizadas em tempo real no Firestore!', 'success');
+            } else {
+              showToast('Salvo no cache local! Configure as variáveis VITE_FIREBASE_* na Vercel.', 'info');
+            }
+          } catch (err) {
+            console.error('Erro ao salvar no Firestore:', err);
+            showToast('Erro ao sincronizar com Firestore: ' + (err.message || 'Verifique sua conexão'), 'error');
+          } finally {
+            btnSaveManage.disabled = false;
+            btnSaveManage.innerHTML = originalHtml;
+          }
         });
 
-        btnResetDefaults.addEventListener('click', function() {
+        btnResetDefaults.addEventListener('click', async function() {
           if (confirm('Deseja realmente restaurar os 8 links para o padrão oficial da DIGRA?')) {
-            currentSystems = JSON.parse(JSON.stringify(FACTORY_SYSTEMS));
-            saveSystems(currentSystems);
-            renderManageForm();
-            updateJsonExportPreview();
-            renderDashboard();
-            showToast('Padrões de fábrica oficiais restaurados!', 'info');
+            const originalText = btnResetDefaults.textContent;
+            btnResetDefaults.disabled = true;
+            btnResetDefaults.textContent = 'Restaurando...';
+            try {
+              if (isFirebaseConfigured) {
+                await restoreDefaultLinksToFirestore();
+                showToast('Padrões de fábrica oficiais restaurados no Firestore!', 'info');
+              } else {
+                currentSystems = JSON.parse(JSON.stringify(FACTORY_SYSTEMS));
+                await persistSystems(currentSystems);
+                renderManageForm();
+                updateJsonExportPreview();
+                renderDashboard();
+                showToast('Padrões de fábrica oficiais restaurados!', 'info');
+              }
+            } catch (e) {
+              console.error(e);
+              showToast('Erro ao restaurar padrões.', 'error');
+            } finally {
+              btnResetDefaults.disabled = false;
+              btnResetDefaults.textContent = originalText;
+            }
           }
         });
 
@@ -1630,6 +1619,53 @@
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
+        }
+
+        function updateConnectionBadges(connected) {
+          const badge = document.getElementById('firebaseConnectionBadge');
+          const statusText = document.getElementById('firebaseStatusText');
+          const modalBadge = document.getElementById('modalFirebaseBadge');
+          if (badge && statusText) {
+            if (connected) {
+              badge.className = 'hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 shadow-xs';
+              badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span id="firebaseStatusText">Firestore Conectado</span>`;
+            } else {
+              badge.className = 'hidden md:flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-500/20 text-amber-200 border border-amber-400/30 shadow-xs';
+              badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400"></span><span id="firebaseStatusText">Modo Local (Aguardando Vercel)</span>`;
+            }
+          }
+          if (modalBadge) {
+            if (connected) {
+              modalBadge.className = 'text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1 shadow-2xs';
+              modalBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span><span>Firestore: links-central</span>`;
+            } else {
+              modalBadge.className = 'text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1 shadow-2xs';
+              modalBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span><span>Firebase: Variáveis pendentes</span>`;
+            }
+          }
+        }
+
+        // Subscrição em Tempo Real (onSnapshot) na coleção links-central
+        if (isFirebaseConfigured) {
+          updateConnectionBadges(true);
+          subscribeToCentralLinks((updatedLinks) => {
+            if (Array.isArray(updatedLinks) && updatedLinks.length > 0) {
+              currentSystems = updatedLinks;
+              try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedLinks, null, 2));
+              } catch (e) {}
+              renderDashboard();
+              if (!manageModal.classList.contains('hidden')) {
+                renderManageForm();
+                updateJsonExportPreview();
+              }
+            }
+          }, (err) => {
+            console.warn('Erro ao escutar Firestore onSnapshot:', err);
+            updateConnectionBadges(false);
+          });
+        } else {
+          updateConnectionBadges(false);
         }
 
         // Initialize header logo and handlers
