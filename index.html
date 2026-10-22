@@ -1,0 +1,1644 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TJRJ • DIGRA | Central de Sistemas e Produção</title>
+    <meta name="description" content="Dashboard Hub da Divisão Gráfica do TJRJ para acesso centralizado a sistemas operacionais e planilhas de produção." />
+    <meta property="og:title" content="TJRJ • DIGRA | Central de Sistemas e Produção" />
+    <meta property="og:description" content="Dashboard Hub da Divisão Gráfica do TJRJ para acesso centralizado a sistemas operacionais e planilhas de produção." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS v4 Browser CDN -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <style>
+      :root {
+        --tjrj-blue: #002F6C;
+        --tjrj-blue-dark: #001f48;
+        --tjrj-blue-light: #0d47a1;
+        --tjrj-gold: #D4AF37;
+        --tjrj-gold-light: #FBF4DB;
+        --tjrj-gold-dark: #A67C00;
+      }
+      body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background-color: #F8FAFC;
+        color: #0F172A;
+      }
+      .bg-tjrj-blue {
+        background-color: #002F6C;
+      }
+      .text-tjrj-blue {
+        color: #002F6C;
+      }
+      .border-tjrj-blue {
+        border-color: #002F6C;
+      }
+      .hover\:bg-tjrj-dark:hover {
+        background-color: #001f48;
+      }
+      /* Custom smooth scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      /* Estilo Reticulado Institucional DIGRA (Efeito Botão Tátil de Alta Precisão) */
+      .card-reticulado {
+        background-color: #ffffff;
+        background-image: radial-gradient(circle at center, rgba(0, 47, 108, 0.085) 1.25px, transparent 1.25px);
+        background-size: 12px 12px;
+        background-position: 0 0;
+        box-shadow: 
+          0 1px 3px rgba(0, 47, 108, 0.04),
+          0 4px 12px -2px rgba(0, 0, 0, 0.04),
+          inset 0 1px 0 rgba(255, 255, 255, 0.95),
+          inset 0 -2.5px 0 rgba(217, 119, 6, 0.22);
+        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background 0.2s ease;
+      }
+      .card-reticulado:hover {
+        background-color: #fffdf9;
+        background-image: radial-gradient(circle at center, rgba(217, 119, 6, 0.14) 1.35px, transparent 1.35px);
+        box-shadow: 
+          0 14px 28px -6px rgba(217, 119, 6, 0.20),
+          0 4px 10px -2px rgba(0, 47, 108, 0.07),
+          inset 0 1px 0 #ffffff,
+          inset 0 -3.5px 0 rgba(217, 119, 6, 0.45);
+        transform: translateY(-4px);
+      }
+      .card-reticulado:active {
+        transform: translateY(-1px) scale(0.995);
+        box-shadow: 
+          0 3px 6px -1px rgba(217, 119, 6, 0.15),
+          inset 0 2px 4px rgba(0, 47, 108, 0.06),
+          inset 0 -1px 0 rgba(217, 119, 6, 0.25);
+      }
+
+      /* Reticulado suave para o slot reservado */
+      .slot-reticulado {
+        background-color: rgba(254, 252, 232, 0.35);
+        background-image: radial-gradient(circle at center, rgba(217, 119, 6, 0.10) 1.25px, transparent 1.25px);
+        background-size: 12px 12px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -2px 0 rgba(217, 119, 6, 0.15);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+      }
+      .slot-reticulado:hover {
+        background-color: rgba(254, 252, 232, 0.7);
+        background-image: radial-gradient(circle at center, rgba(217, 119, 6, 0.16) 1.35px, transparent 1.35px);
+        box-shadow: 0 10px 24px -6px rgba(217, 119, 6, 0.16), inset 0 1px 0 #ffffff, inset 0 -2.5px 0 rgba(217, 119, 6, 0.3);
+        transform: translateY(-3px);
+      }
+      .slot-reticulado:active {
+        transform: translateY(-1px) scale(0.995);
+      }
+
+      /* Drag and drop styling */
+      .card-dragging {
+        opacity: 0.45 !important;
+        transform: scale(0.97) !important;
+      }
+      .card-drag-over {
+        border-color: #d97706 !important;
+        box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.35) !important;
+        background-color: #fefce8 !important;
+      }
+      @media print {
+        header, footer, #btnOpenManage, .no-print {
+          display: none !important;
+        }
+        body {
+          background-color: #ffffff !important;
+          color: #000000 !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col bg-[#F8FAFC] antialiased selection:bg-[#002F6C] selection:text-white">
+
+    <!-- Top Bar / Institutional Header (Expansivo para telas grandes) -->
+    <header class="sticky top-0 z-30 bg-[#002F6C] text-white shadow-md border-b border-[#001f48]">
+      <div class="max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-10">
+        <div class="flex items-center justify-between h-20">
+          
+          <!-- Brand & Hierarchy -->
+          <div class="flex items-center gap-4">
+            <!-- TJRJ Heraldic Scale & Custom DIGRA Logo Box (Clique ou arraste arquivo PNG) -->
+            <div 
+              id="headerLogoBox"
+              class="relative group w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400/20 to-white/10 border border-amber-300/40 hover:border-amber-400 flex items-center justify-center shrink-0 shadow-inner overflow-hidden cursor-pointer transition-all"
+              title="Clique ou arraste sua logo DIGRA (PNG) para trocar o ícone do cabeçalho"
+            >
+              <div id="headerLogoContent" class="w-full h-full flex items-center justify-center p-1 pointer-events-none">
+                <!-- SVG or Custom IMG via JavaScript -->
+              </div>
+
+              <!-- Hover overlay with upload icon -->
+              <div class="absolute inset-0 bg-[#001f48]/85 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-amber-200 pointer-events-none">
+                <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                </svg>
+                <span class="text-[8px] font-bold leading-tight">Trocar</span>
+              </div>
+
+              <input type="file" id="headerLogoFileInput" accept="image/png,image/jpeg,image/jpg,image/svg+xml,.png,.jpg,.jpeg,.svg,.ico" class="hidden" />
+            </div>
+
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xl sm:text-2xl font-bold tracking-tight text-white font-sans">TJRJ • DIGRA</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-200 font-normal">
+                Divisão Gráfica | Central de Sistemas e Produção
+              </p>
+            </div>
+          </div>
+
+          <!-- Actions / Admin Button -->
+          <div class="flex items-center gap-3">
+            <!-- Digital Clock / Date Badge -->
+            <div class="hidden lg:flex flex-col text-right pr-2">
+              <span id="headerClock" class="text-xs font-mono font-medium text-slate-100 tabular-nums">--:--:--</span>
+              <span id="headerDate" class="text-[11px] text-amber-200/90 font-medium">Carregando...</span>
+            </div>
+
+            <!-- Manage Links Button (Acionamento 100% confiável via modal direto) -->
+            <button 
+              id="btnOpenManage"
+              type="button" 
+              class="inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-white bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/50 rounded-xl transition-all duration-150 shadow-sm cursor-pointer active:scale-95 focus:outline-none focus:ring-2 focus:ring-amber-300/50"
+              title="Acesso administrativo para gerenciar links e posições"
+            >
+              <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+              <span>Gerenciar Links</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area (Expansivo 1600px para ocupar a tela inteira sem bordas vazias) -->
+    <main class="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10">
+      
+      <!-- Welcome & Context Strip -->
+      <section class="mb-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-slate-200">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">
+              <span>Tribunal de Justiça do Estado do Rio de Janeiro</span>
+              <span>·</span>
+              <span class="text-[#002F6C] font-bold">DIGRA</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              Central Integrada de Sistemas e Produção
+            </h1>
+          </div>
+
+          <!-- Live Search & Filtering -->
+          <div class="w-full md:w-80 shrink-0">
+            <label for="searchBar" class="sr-only">Filtrar sistemas</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </div>
+              <input 
+                type="text" 
+                id="searchBar" 
+                placeholder="Filtrar por nome ou categoria..." 
+                class="w-full pl-10 pr-4 py-2.5 text-sm bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#002F6C] focus:border-transparent transition-shadow shadow-xs"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter / Meta Counters & Drag Hint -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-4 text-xs text-slate-500">
+          <div class="flex items-center gap-2">
+            <span class="font-semibold text-slate-800" id="systemsCount">8 sistemas operacionais ativos</span>
+          </div>
+          <div class="flex items-center gap-2 text-slate-500">
+            <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+            </svg>
+            <span>Arraste os quadros para reposicionar a qualquer momento</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Operational Grid (4 colunas na tela cheia: 4 no topo + 3 embaixo + 1 espaço reservado) -->
+      <section>
+        <div id="systemsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Rendered dynamically by JavaScript with drag-and-drop -->
+        </div>
+
+        <!-- Empty State (when search returns 0) -->
+        <div id="emptySearchState" class="hidden text-center py-16 px-4 bg-white border border-slate-200 rounded-2xl shadow-xs">
+          <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-base font-semibold text-slate-900">Nenhum sistema encontrado</h3>
+          <p class="text-sm text-slate-500 mt-1">Tente buscar por outro termo ou limpe a caixa de pesquisa.</p>
+          <button id="btnClearSearch" class="mt-4 px-4 py-1.5 text-xs font-medium text-[#002F6C] bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors cursor-pointer">
+            Limpar Busca
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Institutional Footer (Expansivo 1600px) -->
+    <footer class="mt-auto border-t border-slate-200 bg-white py-6">
+      <div class="max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div class="flex items-center gap-2 text-center sm:text-left">
+          <span class="font-bold text-slate-800">TJRJ • DIGRA</span>
+          <span>—</span>
+          <span>Tribunal de Justiça do Estado do Rio de Janeiro</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <span>Uso Interno e Produção Oficial</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- PASSWORD MODAL (Acesso 100% Confiável Direto) -->
+    <div id="passwordModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs transition-opacity duration-200">
+      <div class="bg-white border-2 border-amber-300 rounded-2xl shadow-2xl max-w-md w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-11 h-11 rounded-xl bg-amber-50 border border-amber-300 flex items-center justify-center text-amber-700 shadow-xs">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Autenticação Administrativa</h3>
+            <p class="text-xs text-slate-500">Gerenciamento de links e posições da DIGRA</p>
+          </div>
+        </div>
+
+        <form id="passwordForm" class="space-y-4">
+          <div>
+            <label for="adminPasswordInput" class="block text-xs font-semibold text-slate-700 mb-1">
+              Senha de Acesso
+            </label>
+            <input 
+              type="password" 
+              id="adminPasswordInput" 
+              placeholder="Digite a senha (padrão: 1234)" 
+              class="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all"
+              required
+              autocomplete="current-password"
+            />
+            <p id="passwordError" class="hidden text-xs text-rose-600 mt-1 font-semibold">
+              Senha incorreta. A senha padrão de fábrica é "1234".
+            </p>
+          </div>
+
+          <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+            <button 
+              type="button" 
+              id="btnCancelPassword" 
+              class="px-4 py-2 text-xs font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+            >
+              Cancelar
+            </button>
+            <button 
+              type="submit" 
+              class="px-5 py-2.5 text-xs font-bold text-white bg-[#002F6C] hover:bg-[#001f48] border border-[#001f48] rounded-xl transition-all shadow-sm cursor-pointer active:scale-95"
+            >
+              Confirmar e Abrir
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MANAGEMENT MODAL (Edição, Inclusão de Novo Card e JSON) -->
+    <div id="manageModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm transition-opacity duration-200 overflow-y-auto">
+      <div class="bg-white border-2 border-amber-300 rounded-2xl shadow-2xl max-w-4xl w-full my-8 p-6 sm:p-7 flex flex-col max-h-[90vh]">
+        
+        <!-- Modal Header -->
+        <div class="flex items-start justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-amber-50 border border-amber-300 flex items-center justify-center text-amber-700 shrink-0 shadow-xs">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-lg sm:text-xl font-bold text-slate-900">Gerenciador de Links e Ordem • DIGRA</h2>
+              <p class="text-xs text-slate-500">Configure os títulos, ícones, URLs e adicione novos sistemas</p>
+            </div>
+          </div>
+
+          <!-- Close Modal (X) -->
+          <button 
+            type="button" 
+            id="btnCloseManageX" 
+            class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+            title="Fechar"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Form Scrollable Body -->
+        <div class="flex-1 overflow-y-auto py-5 pr-1 space-y-4">
+          <div class="bg-amber-50/80 border border-amber-200 rounded-xl p-3.5 text-xs text-amber-950 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">💡</span>
+              <span>Você pode editar qualquer link abaixo ou arrastar os cartões na tela inicial para reorganizar. Clique em <strong>"+ Adicionar Novo Sistema"</strong> para usar a posição reservada.</span>
+            </div>
+            <button 
+              type="button" 
+              id="btnAddNewCardInModal" 
+              class="shrink-0 px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg shadow-xs cursor-pointer text-xs transition-colors"
+            >
+              + Adicionar Novo
+            </button>
+          </div>
+
+          <!-- Custom Header Logo Section -->
+          <div class="bg-gradient-to-r from-amber-50 to-slate-50 border border-amber-200/90 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-2xs">
+            <div class="flex items-center gap-3.5 w-full sm:w-auto">
+              <!-- Dropzone for Header Logo -->
+              <div 
+                id="modalHeaderLogoDropzone"
+                class="relative group w-14 h-14 rounded-xl border-2 border-dashed border-amber-400 hover:border-amber-600 bg-white flex items-center justify-center cursor-pointer overflow-hidden p-1 shadow-xs shrink-0 transition-all"
+                title="Clique ou arraste o arquivo PNG da logo DIGRA"
+              >
+                <div id="modalHeaderLogoPreview" class="w-full h-full flex items-center justify-center pointer-events-none p-0.5">
+                  <!-- Logo Preview via JS -->
+                </div>
+                
+                <div class="absolute inset-0 bg-amber-900/75 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white text-[9px] font-bold pointer-events-none">
+                  Alterar
+                </div>
+
+                <input type="file" id="modalHeaderLogoFileInput" accept="image/png,image/jpeg,image/jpg,image/svg+xml,.png,.jpg,.jpeg,.svg,.ico" class="hidden" />
+              </div>
+
+              <div>
+                <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                  <span>Logotipo Superior (TJRJ • DIGRA)</span>
+                  <span class="text-[10px] bg-amber-100 text-amber-900 border border-amber-300 font-semibold px-1.5 py-0.5 rounded">PNG / JPG</span>
+                </h4>
+                <p class="text-[11px] text-slate-600 mt-0.5">
+                  Arraste sua logo PNG ou clique no quadro para substituir o ícone da balança.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 self-end sm:self-center shrink-0">
+              <button 
+                type="button" 
+                id="btnResetHeaderLogo"
+                class="text-xs font-medium text-slate-600 hover:text-rose-700 px-3 py-1.5 rounded-lg border border-slate-300 hover:border-rose-300 bg-white hover:bg-rose-50 transition-colors cursor-pointer"
+                title="Restaurar a balança institucional padrão"
+              >
+                Restaurar Balança
+              </button>
+            </div>
+          </div>
+
+          <form id="systemsForm" class="space-y-4">
+            <div id="formCardsContainer" class="space-y-3">
+              <!-- Dynamically rendered system edit cards -->
+            </div>
+          </form>
+
+          <!-- JSON Export Preview Area (Expandable) -->
+          <div id="jsonPreviewSection" class="hidden mt-4 pt-4 border-t border-slate-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-700">Código JSON atualizado para GitHub / arquivo fonte:</span>
+              <button 
+                type="button" 
+                id="btnCopyFromTextarea" 
+                class="text-xs text-[#002F6C] hover:underline font-bold cursor-pointer"
+              >
+                Copiar conteúdo
+              </button>
+            </div>
+            <textarea 
+              id="jsonExportTextarea" 
+              readonly 
+              rows="8" 
+              class="w-full font-mono text-xs p-3 bg-slate-900 text-slate-100 rounded-xl border border-slate-800 focus:outline-none"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Modal Footer Actions -->
+        <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <!-- Reset Defaults -->
+            <button 
+              type="button" 
+              id="btnResetDefaults" 
+              class="w-full sm:w-auto px-3.5 py-2 text-xs font-semibold text-rose-700 hover:text-rose-800 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl transition-colors cursor-pointer"
+              title="Restaura a lista oficial padrão da DIGRA"
+            >
+              Restaurar Padrões
+            </button>
+
+            <!-- Copy JSON -->
+            <button 
+              type="button" 
+              id="btnCopyJson" 
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-xl transition-all cursor-pointer active:scale-95"
+            >
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+              <span>Copiar Código JSON</span>
+            </button>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <!-- Cancel -->
+            <button 
+              type="button" 
+              id="btnCancelManage" 
+              class="w-full sm:w-auto px-4 py-2 text-xs font-medium text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+            >
+              Cancelar
+            </button>
+
+            <!-- Save Changes -->
+            <button 
+              type="button" 
+              id="btnSaveManage" 
+              class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-5 py-2 text-xs font-bold text-white bg-[#002F6C] hover:bg-[#001f48] rounded-xl transition-all shadow-sm cursor-pointer active:scale-95"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Salvar Alterações</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 pointer-events-none flex flex-col gap-2"></div>
+
+    <!-- VANILLA JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+      (function() {
+        'use strict';
+
+        // =========================================================================
+        // 1. ESTADO INICIAL ESTÁTICO (URLs OFICIAIS EXATAS E COMPLETAS DA DIGRA)
+        // =========================================================================
+        const FACTORY_SYSTEMS = [
+          {
+            id: 1,
+            icon: "📄",
+            name: "Guias de Remessa",
+            url: "https://digra-guias.vercel.app/",
+            description: "Emissão e controle de guias de remessa de materiais gráficos e documentos.",
+            tag: "Operacional"
+          },
+          {
+            id: 2,
+            icon: "📊",
+            name: "Orçamento Gráfico",
+            url: "https://digra.vercel.app/",
+            description: "Cálculo de orçamentos, cotação de insumos e precificação de tiragens.",
+            tag: "Financeiro"
+          },
+          {
+            id: 3,
+            icon: "🧮",
+            name: "Calculadora de Placas",
+            url: "https://digra.vercel.app/calculadora-placas.html",
+            description: "Dimensionamento técnico de chapas CTP e aproveitamento de formato.",
+            tag: "Pré-Impressão"
+          },
+          {
+            id: 4,
+            icon: "📝",
+            name: "Boletim de Serviço",
+            url: "https://digra-boletim-de-servicos.vercel.app/",
+            description: "Registro diário de ordens de serviço, turnos e acompanhamento operacional.",
+            tag: "Produção"
+          },
+          {
+            id: 5,
+            icon: "📅",
+            name: "Controle Anual de Papéis",
+            url: "https://tjrj-my.sharepoint.com/:x:/r/personal/mendes_alexandre_tjrj_jus_br/Documents/CONTROLE%20ANUAL%20DE%20PAPEIS%20DIGRA%201.xlsx?d=w2bd643d26d0847e6a41c0c57140b23a9&csf=1&web=1&e=NrFs6i",
+            description: "Planilha corporativa de consumo, estoque e projeção anual de bobinas e resmas.",
+            tag: "SharePoint"
+          },
+          {
+            id: 6,
+            icon: "📉",
+            name: "Custos de Produção",
+            url: "https://tjrj-my.sharepoint.com/:x:/r/personal/eduardocarpi_tjrj_jus_br/Documents/DIGRA/SIGA/Planilhas%20de%20Controle/2026/0-0-3b%20Planilha%20de%20Controle%20e%20Custos%20de%20Produ%C3%A7%C3%A3o%202026.xlsx?d=w1b3756bfedca482995806bc4c560cbca&csf=1&web=1&e=JnAMHd",
+            description: "Demonstrativo consolidado de despesas fabris e rateio por comarca no SharePoint.",
+            tag: "SharePoint"
+          },
+          {
+            id: 7,
+            icon: "📋",
+            name: "Serviços Não Codificados",
+            url: "https://trello.com/b/nSviDSGC/solicitacao-de-servicos-graficos-nao-codificados",
+            description: "Quadro Kanban no Trello para solicitação e triagem de serviços gráficos não codificados.",
+            tag: "Trello"
+          },
+          {
+            id: 8,
+            icon: "⚖️",
+            name: "SEI - Processo Administrativo Eletrônico",
+            url: "https://www10.tjrj.jus.br/sei/",
+            description: "Sistema Eletrônico de Informações do TJRJ para gestão de processos e expedientes administrativos.",
+            tag: "TJRJ"
+          }
+        ];
+
+        const STORAGE_KEY = 'digra_systems_links';
+        const DEFAULT_PASSWORD = '1234';
+
+        // Load systems from localStorage, strictly preserving all user customizations
+        function loadSystems() {
+          try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+              const parsed = JSON.parse(stored);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                return parsed;
+              }
+            }
+          } catch (e) {
+            console.warn('Carregando links padrão oficiais da DIGRA:', e);
+          }
+          const defaults = JSON.parse(JSON.stringify(FACTORY_SYSTEMS));
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults, null, 2));
+          return defaults;
+        }
+
+        function saveSystems(systems) {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(systems, null, 2));
+            return true;
+          } catch (e) {
+            console.error('Erro ao salvar no localStorage:', e);
+            return false;
+          }
+        }
+
+        // Active State
+        let currentSystems = loadSystems();
+        let searchQuery = '';
+        let draggedIndex = null;
+
+        // DOM Elements
+        const systemsGrid = document.getElementById('systemsGrid');
+        const emptySearchState = document.getElementById('emptySearchState');
+        const searchBar = document.getElementById('searchBar');
+        const btnClearSearch = document.getElementById('btnClearSearch');
+        const systemsCount = document.getElementById('systemsCount');
+        const btnOpenManage = document.getElementById('btnOpenManage');
+
+        // Modal Elements
+        const passwordModal = document.getElementById('passwordModal');
+        const passwordForm = document.getElementById('passwordForm');
+        const adminPasswordInput = document.getElementById('adminPasswordInput');
+        const passwordError = document.getElementById('passwordError');
+        const btnCancelPassword = document.getElementById('btnCancelPassword');
+
+        const manageModal = document.getElementById('manageModal');
+        const btnCloseManageX = document.getElementById('btnCloseManageX');
+        const btnCancelManage = document.getElementById('btnCancelManage');
+        const btnSaveManage = document.getElementById('btnSaveManage');
+        const btnResetDefaults = document.getElementById('btnResetDefaults');
+        const btnCopyJson = document.getElementById('btnCopyJson');
+        const btnAddNewCardInModal = document.getElementById('btnAddNewCardInModal');
+        const formCardsContainer = document.getElementById('formCardsContainer');
+        const jsonPreviewSection = document.getElementById('jsonPreviewSection');
+        const jsonExportTextarea = document.getElementById('jsonExportTextarea');
+        const btnCopyFromTextarea = document.getElementById('btnCopyFromTextarea');
+
+        // Digital Clock / Date
+        function updateClock() {
+          const now = new Date();
+          const clockEl = document.getElementById('headerClock');
+          const dateEl = document.getElementById('headerDate');
+          
+          if (clockEl) {
+            clockEl.textContent = now.toLocaleTimeString('pt-BR');
+          }
+          if (dateEl) {
+            const options = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' };
+            dateEl.textContent = now.toLocaleDateString('pt-BR', options).toUpperCase();
+          }
+        }
+        setInterval(updateClock, 1000);
+        // =========================================================================
+        // LOGOTIPO INSTITUCIONAL SUPERIOR (TJRJ • DIGRA)
+        // =========================================================================
+        const HEADER_LOGO_STORAGE_KEY = 'digra_header_logo_custom';
+        const DEFAULT_BALANCE_SVG = `
+          <svg class="w-7 h-7 text-amber-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v17"/>
+            <path d="M5 8h14"/>
+            <path d="m6 8-4 7c0 2 2 3 4 3s4-1 4-3l-4-7Z"/>
+            <path d="m18 8-4 7c0 2 2 3 4 3s4-1 4-3l-4-7Z"/>
+            <path d="M9 21h6"/>
+          </svg>
+        `;
+
+        function getCustomHeaderLogo() {
+          try {
+            return localStorage.getItem(HEADER_LOGO_STORAGE_KEY) || null;
+          } catch {
+            return null;
+          }
+        }
+
+        function updateHeaderLogos() {
+          const customLogo = getCustomHeaderLogo();
+          const headerContent = document.getElementById('headerLogoContent');
+          const modalPreview = document.getElementById('modalHeaderLogoPreview');
+
+          const markup = customLogo 
+            ? `<img src="${escapeHtml(customLogo)}" alt="Logo DIGRA" class="w-full h-full object-contain select-none pointer-events-none rounded-lg" onerror="this.onerror=null; this.parentElement.innerHTML=DEFAULT_BALANCE_SVG;">`
+            : DEFAULT_BALANCE_SVG;
+
+          if (headerContent) headerContent.innerHTML = markup;
+          if (modalPreview) modalPreview.innerHTML = markup;
+        }
+
+        function saveCustomHeaderLogo(dataUrl) {
+          try {
+            localStorage.setItem(HEADER_LOGO_STORAGE_KEY, dataUrl);
+            updateHeaderLogos();
+            showToast('Logotipo da DIGRA atualizado com sucesso no cabeçalho!', 'success');
+          } catch (e) {
+            showToast('Erro ao salvar imagem. Tente um arquivo mais leve.', 'error');
+          }
+        }
+
+        function resetCustomHeaderLogo() {
+          try {
+            localStorage.removeItem(HEADER_LOGO_STORAGE_KEY);
+            updateHeaderLogos();
+            showToast('Balança oficial restaurada no cabeçalho!', 'info');
+          } catch (e) {
+            console.error(e);
+          }
+        }
+
+        function processHeaderLogoFile(file) {
+          if (!file) return;
+          const valid = file.type.startsWith('image/') || /\.(png|jpe?g|svg|ico|webp)$/i.test(file.name);
+          if (!valid) {
+            showToast('Formato não suportado. Envie uma imagem PNG, JPG ou SVG.', 'error');
+            return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const rawResult = e.target.result;
+            if (file.type === 'image/svg+xml') {
+              saveCustomHeaderLogo(rawResult);
+              return;
+            }
+            const img = new Image();
+            img.onload = function() {
+              const maxDim = 384;
+              let width = img.naturalWidth || img.width;
+              let height = img.naturalHeight || img.height;
+              if (width > maxDim || height > maxDim) {
+                if (width > height) {
+                  height = Math.round((height * maxDim) / width);
+                  width = maxDim;
+                } else {
+                  width = Math.round((width * maxDim) / height);
+                  height = maxDim;
+                }
+              }
+              const canvas = document.createElement('canvas');
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, width, height);
+              const isPng = file.type.includes('png') || file.name.toLowerCase().endsWith('.png');
+              const dataUrl = canvas.toDataURL(isPng ? 'image/png' : 'image/jpeg', 0.95);
+              saveCustomHeaderLogo(dataUrl);
+            };
+            img.onerror = function() {
+              saveCustomHeaderLogo(rawResult);
+            };
+            img.src = rawResult;
+          };
+          reader.readAsDataURL(file);
+        }
+
+        function initHeaderLogoHandlers() {
+          const headerLogoBox = document.getElementById('headerLogoBox');
+          const headerLogoFileInput = document.getElementById('headerLogoFileInput');
+          const modalDropzone = document.getElementById('modalHeaderLogoDropzone');
+          const modalFileInput = document.getElementById('modalHeaderLogoFileInput');
+          const btnResetLogo = document.getElementById('btnResetHeaderLogo');
+
+          // Header Box Click & Drag
+          if (headerLogoBox && headerLogoFileInput) {
+            headerLogoBox.addEventListener('click', (e) => {
+              if (e.target !== headerLogoFileInput) headerLogoFileInput.click();
+            });
+            headerLogoFileInput.addEventListener('change', (e) => {
+              const file = e.target.files && e.target.files[0];
+              if (file) processHeaderLogoFile(file);
+            });
+            headerLogoBox.addEventListener('dragover', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              headerLogoBox.classList.add('scale-110', 'border-amber-400');
+            });
+            headerLogoBox.addEventListener('dragleave', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              headerLogoBox.classList.remove('scale-110', 'border-amber-400');
+            });
+            headerLogoBox.addEventListener('drop', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              headerLogoBox.classList.remove('scale-110', 'border-amber-400');
+              const file = e.dataTransfer.files && e.dataTransfer.files[0];
+              if (file) processHeaderLogoFile(file);
+            });
+          }
+
+          // Modal Dropzone Click & Drag
+          if (modalDropzone && modalFileInput) {
+            modalDropzone.addEventListener('click', (e) => {
+              if (e.target !== modalFileInput) modalFileInput.click();
+            });
+            modalFileInput.addEventListener('change', (e) => {
+              const file = e.target.files && e.target.files[0];
+              if (file) processHeaderLogoFile(file);
+            });
+            modalDropzone.addEventListener('dragover', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              modalDropzone.classList.add('border-amber-600', 'bg-amber-100', 'scale-105');
+            });
+            modalDropzone.addEventListener('dragleave', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              modalDropzone.classList.remove('border-amber-600', 'bg-amber-100', 'scale-105');
+            });
+            modalDropzone.addEventListener('drop', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              modalDropzone.classList.remove('border-amber-600', 'bg-amber-100', 'scale-105');
+              const file = e.dataTransfer.files && e.dataTransfer.files[0];
+              if (file) processHeaderLogoFile(file);
+            });
+          }
+
+          if (btnResetLogo) {
+            btnResetLogo.addEventListener('click', () => {
+              resetCustomHeaderLogo();
+            });
+          }
+
+          updateHeaderLogos();
+        }
+
+        // Helper: Check if icon is an image (Base64 data URL, image file, or URL)
+        function isImageIcon(val) {
+          if (!val || typeof val !== 'string') return false;
+          const str = val.trim();
+          return str.startsWith('data:image/') ||
+                 str.startsWith('http://') ||
+                 str.startsWith('https://') ||
+                 str.startsWith('/') ||
+                 str.startsWith('blob:') ||
+                 /\.(png|jpe?g|ico|svg|webp|gif)(\?.*)?$/i.test(str);
+        }
+
+        // Helper: Render icon either as image or emoji/text
+        function renderIconMarkup(iconValue, extraImgClass = '') {
+          if (!iconValue) {
+            return '<span class="text-3xl select-none leading-none">📄</span>';
+          }
+          if (isImageIcon(iconValue)) {
+            return `<img src="${escapeHtml(iconValue)}" alt="Ícone" class="w-full h-full object-contain select-none pointer-events-none rounded-xl ${extraImgClass}" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'text-3xl select-none leading-none\\'>📄</span>';">`;
+          }
+          return `<span class="text-3xl select-none leading-none">${escapeHtml(iconValue)}</span>`;
+        }
+
+        // =========================================================================
+        // 2. RENDERIZAÇÃO DO DASHBOARD (4 EM CIMA, 3 EMBAIXO + ESPAÇO RESERVADO)
+        // =========================================================================
+        function renderDashboard() {
+          const query = searchQuery.trim().toLowerCase();
+          const filtered = currentSystems.filter(sys => {
+            if (!query) return true;
+            return (sys.name && sys.name.toLowerCase().includes(query)) ||
+                   (sys.description && sys.description.toLowerCase().includes(query)) ||
+                   (sys.tag && sys.tag.toLowerCase().includes(query)) ||
+                   (sys.url && sys.url.toLowerCase().includes(query));
+          });
+
+          if (systemsCount) {
+            systemsCount.textContent = `${currentSystems.length} sistemas operacionais ativos`;
+          }
+
+          if (filtered.length === 0) {
+            systemsGrid.innerHTML = '';
+            emptySearchState.classList.remove('hidden');
+            return;
+          }
+
+          emptySearchState.classList.add('hidden');
+
+          // Render system cards with golden border, centered text, full-card click, and NO button shown
+          let cardsHtml = filtered.map((item, idx) => {
+            return `
+              <a 
+                href="${escapeHtml(item.url)}" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="system-card card-reticulado group relative flex flex-col items-center justify-between border-2 border-amber-300/90 hover:border-amber-500 rounded-2xl p-6 min-h-[270px] text-center cursor-pointer block no-underline text-inherit select-none"
+                draggable="true"
+                data-id="${item.id}"
+                data-index="${idx}"
+                title="Clique em qualquer lugar do quadro para acessar ${escapeHtml(item.name)}"
+              >
+                
+                <!-- Card Top Row: Order Badge + Subtle Link Icon + Drag Grip -->
+                <div class="w-full flex items-center justify-between mb-2">
+                  <!-- Order Number -->
+                  <span class="text-[11px] font-bold text-amber-800 bg-amber-50/90 border border-amber-200/90 px-2.5 py-0.5 rounded-md font-mono shadow-2xs" title="Posição na tela">
+                    #${idx + 1}
+                  </span>
+
+                  <div class="flex items-center gap-1">
+                    <!-- Subtle External Link Icon -->
+                    <span class="text-slate-300 group-hover:text-amber-600 transition-colors p-1" title="Abre em nova aba">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                      </svg>
+                    </span>
+
+                    <!-- Drag Handle Icon -->
+                    <div class="drag-handle text-slate-300 hover:text-amber-600 transition-colors cursor-grab active:cursor-grabbing p-1" title="Arraste para reorganizar a ordem">
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/>
+                        <circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>
+                        <circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Center Content: Icon + Name + Description -->
+                <div class="flex flex-col items-center justify-center my-auto w-full py-2">
+                  <!-- Icon / Emoji / Image Container com halo dourado elevado -->
+                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-b from-amber-50 to-slate-50 border border-amber-200/90 flex items-center justify-center text-3xl shadow-xs group-hover:scale-105 group-hover:border-amber-400 group-hover:shadow-md transition-all duration-200 mb-3 overflow-hidden p-1.5">
+                    ${renderIconMarkup(item.icon)}
+                  </div>
+
+                  <!-- System Title (CENTRALIZADO) -->
+                  <h3 class="text-base sm:text-lg font-bold text-slate-900 group-hover:text-[#002F6C] transition-colors leading-snug text-center px-1">
+                    ${escapeHtml(item.name)}
+                  </h3>
+
+                  <!-- System Description (CENTRALIZADO) -->
+                  <p class="text-xs text-slate-600 mt-2 leading-relaxed text-center line-clamp-3 px-1">
+                    ${escapeHtml(item.description || 'Acesso oficial da Divisão Gráfica.')}
+                  </p>
+                </div>
+
+                <!-- Card Bottom Tactile Hint (Sem botão solto, feedback tátil moderno) -->
+                <div class="w-full pt-2 flex items-center justify-center text-[11px] font-semibold text-slate-400 group-hover:text-amber-800 transition-all duration-150">
+                  <span class="inline-flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity">
+                    <span>Acessar sistema</span>
+                    <span class="text-xs transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+                  </span>
+                </div>
+
+              </a>
+            `;
+          }).join('');
+
+          // Slot Reservado para futuro sistema / planilha (exibido quando houver vaga para completar a linha de 4)
+          if (!query && currentSystems.length % 4 !== 0) {
+            cardsHtml += `
+              <div 
+                id="btnReservedSlot"
+                class="slot-reticulado group relative flex flex-col items-center justify-between border-2 border-dashed border-amber-300/80 hover:border-amber-500 rounded-2xl p-6 cursor-pointer min-h-[270px] text-center"
+                title="Clique para adicionar um novo sistema nesta posição reservada"
+              >
+                <!-- Top Badge -->
+                <div class="w-full flex items-center justify-between gap-2 mb-3">
+                  <span class="text-[11px] font-bold text-amber-800 bg-amber-100/70 border border-amber-300 px-2 py-0.5 rounded-md font-mono">
+                    #${currentSystems.length + 1}
+                  </span>
+                  <span class="text-[11px] font-semibold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">
+                    Futura Expansão
+                  </span>
+                  <div class="w-4"></div>
+                </div>
+
+                <!-- Center Content -->
+                <div class="flex flex-col items-center justify-center my-auto">
+                  <div class="w-14 h-14 rounded-2xl bg-amber-100/70 border border-amber-300 text-amber-700 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform shadow-xs">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-base font-bold text-slate-800 group-hover:text-amber-900 transition-colors">
+                    Espaço Reservado
+                  </h3>
+                  <p class="text-xs text-slate-500 mt-1 max-w-[200px] leading-relaxed">
+                    Posição reservada para nova planilha ou sistema da DIGRA
+                  </p>
+                </div>
+
+                <!-- Action Button -->
+                <div class="w-full pt-4 mt-2 border-t border-amber-200/50 flex items-center justify-center">
+                  <span class="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs font-bold text-amber-800 bg-amber-100/80 hover:bg-amber-200/80 border border-amber-300/80 rounded-xl transition-all shadow-xs group-hover:shadow-sm">
+                    <span>+ Adicionar Sistema</span>
+                  </span>
+                </div>
+              </div>
+            `;
+          }
+
+          systemsGrid.innerHTML = cardsHtml;
+
+          // Attach Drag and Drop handlers to cards
+          attachDragAndDrop();
+
+          // Attach listener to the 8th slot
+          const slotBtn = document.getElementById('btnReservedSlot');
+          if (slotBtn) {
+            slotBtn.addEventListener('click', openPasswordModal);
+          }
+        }
+
+        // =========================================================================
+        // 3. ARRASTAR E SOLTAR (DRAG & DROP) PARA REORDENAR OS QUADROS
+        // =========================================================================
+        let wasDragging = false;
+
+        function attachDragAndDrop() {
+          const cards = document.querySelectorAll('.system-card');
+
+          cards.forEach(card => {
+            card.addEventListener('dragstart', handleDragStart);
+            card.addEventListener('dragover', handleDragOver);
+            card.addEventListener('dragenter', handleDragEnter);
+            card.addEventListener('dragleave', handleDragLeave);
+            card.addEventListener('drop', handleDrop);
+            card.addEventListener('dragend', handleDragEnd);
+
+            // Previne abertura de link acidental durante o arraste ou ao tocar no ícone de arrastar
+            card.addEventListener('click', function(e) {
+              if (wasDragging) {
+                e.preventDefault();
+                return;
+              }
+              if (e.target.closest('.drag-handle')) {
+                e.preventDefault();
+                return;
+              }
+            });
+          });
+        }
+
+        function handleDragStart(e) {
+          wasDragging = true;
+          draggedIndex = parseInt(this.getAttribute('data-index'), 10);
+          this.classList.add('card-dragging');
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', draggedIndex);
+        }
+
+        function handleDragOver(e) {
+          if (e.preventDefault) e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          return false;
+        }
+
+        function handleDragEnter(e) {
+          this.classList.add('card-drag-over');
+        }
+
+        function handleDragLeave(e) {
+          this.classList.remove('card-drag-over');
+        }
+
+        function handleDrop(e) {
+          if (e.stopPropagation) e.stopPropagation();
+          this.classList.remove('card-drag-over');
+          
+          const targetIndex = parseInt(this.getAttribute('data-index'), 10);
+          
+          if (draggedIndex !== null && !isNaN(draggedIndex) && !isNaN(targetIndex) && draggedIndex !== targetIndex) {
+            // Reorder array
+            const movedItem = currentSystems.splice(draggedIndex, 1)[0];
+            currentSystems.splice(targetIndex, 0, movedItem);
+            
+            // Save state and re-render
+            saveSystems(currentSystems);
+            renderDashboard();
+            showToast('Ordem dos cartões atualizada com sucesso!', 'success');
+          }
+          return false;
+        }
+
+        function handleDragEnd() {
+          this.classList.remove('card-dragging');
+          const cards = document.querySelectorAll('.system-card');
+          cards.forEach(c => c.classList.remove('card-drag-over'));
+          setTimeout(() => {
+            wasDragging = false;
+          }, 150);
+        }
+
+        // =========================================================================
+        // 4. MODAL DE SENHA E GERENCIAMENTO (100% CONFIÁVEL SEM WINDOW.PROMPT)
+        // =========================================================================
+        function openPasswordModal() {
+          passwordError.classList.add('hidden');
+          adminPasswordInput.value = '';
+          passwordModal.classList.remove('hidden');
+          setTimeout(() => adminPasswordInput.focus(), 60);
+        }
+
+        function closePasswordModal() {
+          passwordModal.classList.add('hidden');
+          adminPasswordInput.value = '';
+          passwordError.classList.add('hidden');
+        }
+
+        // Aciona o modal de senha ao clicar em "Gerenciar Links"
+        btnOpenManage.addEventListener('click', function(e) {
+          e.preventDefault();
+          openPasswordModal();
+        });
+
+        btnCancelPassword.addEventListener('click', closePasswordModal);
+
+        passwordForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const pass = adminPasswordInput.value.trim();
+          if (pass === DEFAULT_PASSWORD) {
+            closePasswordModal();
+            openManageModal();
+          } else {
+            passwordError.classList.remove('hidden');
+            adminPasswordInput.focus();
+            showToast('Senha incorreta! Digite 1234', 'error');
+          }
+        });
+
+        function openManageModal() {
+          renderManageForm();
+          updateHeaderLogos();
+          updateJsonExportPreview();
+          manageModal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeManageModal() {
+          manageModal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+
+        btnCloseManageX.addEventListener('click', closeManageModal);
+        btnCancelManage.addEventListener('click', closeManageModal);
+
+        // Helper: Process and optimize image file (.png, .jpg, .ico, .svg) for storage
+        function processIconFile(file, callback) {
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const rawResult = e.target.result;
+            // For SVG or ICO files, keep exact data
+            const isIco = file.name && file.name.toLowerCase().endsWith('.ico');
+            if (file.type === 'image/svg+xml' || isIco) {
+              callback(rawResult);
+              return;
+            }
+            // For standard raster images, resize to max 192x192 to keep storage fast and lightweight
+            const img = new Image();
+            img.onload = function() {
+              const maxDim = 192;
+              let width = img.naturalWidth || img.width;
+              let height = img.naturalHeight || img.height;
+              if (width > maxDim || height > maxDim) {
+                if (width > height) {
+                  height = Math.round((height * maxDim) / width);
+                  width = maxDim;
+                } else {
+                  width = Math.round((width * maxDim) / height);
+                  height = maxDim;
+                }
+              }
+              const canvas = document.createElement('canvas');
+              canvas.width = width;
+              canvas.height = height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, width, height);
+              const isPng = file.type.includes('png');
+              const dataUrl = canvas.toDataURL(isPng ? 'image/png' : 'image/jpeg', 0.92);
+              callback(dataUrl);
+            };
+            img.onerror = function() {
+              callback(rawResult);
+            };
+            img.src = rawResult;
+          };
+          reader.readAsDataURL(file);
+        }
+
+        // Synchronize text inputs into currentSystems state before re-rendering
+        function syncFormInputsToCurrentSystems() {
+          const inputs = formCardsContainer.querySelectorAll('input[data-index]');
+          inputs.forEach(input => {
+            const idx = parseInt(input.getAttribute('data-index'), 10);
+            const field = input.getAttribute('data-field');
+            if (!currentSystems[idx]) return;
+            if (field === 'icon_emoji') {
+              const val = input.value.trim();
+              if (val) {
+                currentSystems[idx].icon = val;
+              }
+            } else if (field === 'name') {
+              currentSystems[idx].name = input.value.trim();
+            } else if (field === 'url') {
+              currentSystems[idx].url = input.value.trim();
+            } else if (field === 'description') {
+              currentSystems[idx].description = input.value.trim();
+            }
+          });
+        }
+
+        function handleUploadedIcon(file, idx) {
+          const validExtensions = /\.(png|jpe?g|ico|svg|webp|gif)$/i;
+          if (!file.type.startsWith('image/') && !validExtensions.test(file.name)) {
+            showToast('Formato não suportado. Use imagens .png, .jpg, .ico ou .svg.', 'error');
+            return;
+          }
+
+          processIconFile(file, function(dataUrl) {
+            syncFormInputsToCurrentSystems();
+            currentSystems[idx].icon = dataUrl;
+            saveSystems(currentSystems);
+            renderDashboard();
+            renderManageForm();
+            updateJsonExportPreview();
+            showToast(`Ícone do sistema #${idx + 1} atualizado e salvo!`, 'success');
+          });
+        }
+
+        // Renderiza o formulário do modal de gerenciamento
+        function renderManageForm() {
+          formCardsContainer.innerHTML = currentSystems.map((item, index) => {
+            const isImg = isImageIcon(item.icon);
+            return `
+              <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3 relative transition-colors hover:border-amber-300">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                    <span class="w-5 h-5 rounded-full bg-amber-100 border border-amber-300 text-amber-800 flex items-center justify-center text-[10px]">${index + 1}</span>
+                    <span>Sistema #${index + 1}</span>
+                  </span>
+                  
+                  <div class="flex items-center gap-3">
+                    <a 
+                      href="${escapeHtml(item.url)}" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      class="text-[11px] text-[#002F6C] hover:underline font-semibold inline-flex items-center gap-1"
+                    >
+                      <span>Testar Link ↗</span>
+                    </a>
+                    
+                    ${currentSystems.length > 1 ? `
+                      <button 
+                        type="button" 
+                        data-action="delete" 
+                        data-index="${index}"
+                        class="text-rose-600 hover:text-rose-800 text-xs font-medium cursor-pointer p-1"
+                        title="Remover este sistema"
+                      >
+                        Excluir
+                      </button>
+                    ` : ''}
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+                  <!-- Icon Dropzone & Emoji Input (sm:col-span-3) -->
+                  <div class="sm:col-span-3 flex flex-col items-center">
+                    <label class="block text-[11px] font-semibold text-slate-600 mb-1 self-start">Ícone / Imagem</label>
+                    
+                    <!-- Drag & Drop Zone Box -->
+                    <div 
+                      class="icon-dropzone relative group w-20 h-20 rounded-2xl border-2 border-dashed border-amber-300 hover:border-amber-500 bg-amber-50/50 hover:bg-amber-100/60 transition-all flex flex-col items-center justify-center cursor-pointer overflow-hidden p-1.5 text-center shadow-xs"
+                      data-index="${index}"
+                      title="Arraste ou clique para enviar imagem (.png, .jpg, .ico, .svg)"
+                    >
+                      <!-- Preview Container -->
+                      <div class="w-10 h-10 flex items-center justify-center pointer-events-none">
+                        ${renderIconMarkup(item.icon)}
+                      </div>
+                      <span class="text-[9px] font-bold text-amber-900/80 mt-1 leading-none group-hover:text-amber-800 pointer-events-none">
+                        Arrastar / .ico
+                      </span>
+                      
+                      <!-- Overlay on hover -->
+                      <div class="absolute inset-0 bg-amber-900/75 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white pointer-events-none">
+                        <svg class="w-4 h-4 mb-0.5 text-amber-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        </svg>
+                        <span class="text-[9px] font-bold">Alterar</span>
+                      </div>
+
+                      <!-- Hidden File Input -->
+                      <input 
+                        type="file" 
+                        accept="image/png, image/jpeg, image/jpg, image/x-icon, image/vnd.microsoft.icon, image/svg+xml, .ico, .png, .jpg, .jpeg, .svg" 
+                        class="hidden icon-file-input" 
+                        data-index="${index}"
+                      />
+                    </div>
+
+                    <!-- Emoji Text Input or Clear Button -->
+                    <div class="mt-1.5 w-full flex items-center justify-center gap-1">
+                      <input 
+                        type="text" 
+                        value="${isImg ? '' : escapeHtml(item.icon || '')}" 
+                        data-index="${index}" 
+                        data-field="icon_emoji" 
+                        class="w-14 text-center px-1.5 py-1 text-xs bg-white border border-slate-200 rounded-lg focus:ring-1 focus:ring-amber-500 focus:outline-none" 
+                        placeholder="Emoji" 
+                        maxlength="4"
+                        title="Ou digite um emoji direto aqui"
+                      />
+                      ${isImg ? `
+                        <button 
+                          type="button" 
+                          data-action="clear-image" 
+                          data-index="${index}"
+                          class="text-[10px] text-slate-500 hover:text-rose-600 px-1 py-1 rounded hover:bg-slate-200 transition-colors cursor-pointer"
+                          title="Remover imagem e voltar para emoji padrão"
+                        >
+                          Limpar
+                        </button>
+                      ` : ''}
+                    </div>
+                  </div>
+
+                  <!-- Name, URL, Description (sm:col-span-9) -->
+                  <div class="sm:col-span-9 space-y-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <!-- Name Input -->
+                      <div>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">Nome do Botão</label>
+                        <input 
+                          type="text" 
+                          value="${escapeHtml(item.name)}" 
+                          data-index="${index}" 
+                          data-field="name" 
+                          class="w-full px-3 py-2 text-sm bg-white border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none font-medium" 
+                          placeholder="Ex: Novo Sistema DIGRA" 
+                          required
+                        />
+                      </div>
+
+                      <!-- URL Input -->
+                      <div>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">URL Completa (target="_blank")</label>
+                        <input 
+                          type="url" 
+                          value="${escapeHtml(item.url)}" 
+                          data-index="${index}" 
+                          data-field="url" 
+                          class="w-full px-3 py-2 text-sm font-mono bg-white border border-slate-200 rounded-xl text-slate-900 focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+                          placeholder="https://..." 
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Description Input -->
+                    <div>
+                      <label class="block text-[11px] font-semibold text-slate-500 mb-1">Descrição Breve</label>
+                      <input 
+                        type="text" 
+                        value="${escapeHtml(item.description || '')}" 
+                        data-index="${index}" 
+                        data-field="description" 
+                        class="w-full px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-xl text-slate-700 focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+                        placeholder="Descrição da rotina ou objetivo operacional..." 
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          // Attach delete handlers inside modal
+          formCardsContainer.querySelectorAll('button[data-action="delete"]').forEach(btn => {
+            btn.addEventListener('click', function() {
+              const idx = parseInt(this.getAttribute('data-index'), 10);
+              if (confirm(`Deseja remover o sistema "${currentSystems[idx].name}"?`)) {
+                currentSystems.splice(idx, 1);
+                renderManageForm();
+                updateJsonExportPreview();
+              }
+            });
+          });
+
+          // Attach clear image handlers
+          formCardsContainer.querySelectorAll('button[data-action="clear-image"]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+              e.stopPropagation();
+              const idx = parseInt(this.getAttribute('data-index'), 10);
+              syncFormInputsToCurrentSystems();
+              currentSystems[idx].icon = '📄';
+              saveSystems(currentSystems);
+              renderDashboard();
+              renderManageForm();
+              updateJsonExportPreview();
+              showToast('Imagem removida. Ícone padrão restaurado.', 'info');
+            });
+          });
+
+          // Attach dropzone and file input handlers
+          formCardsContainer.querySelectorAll('.icon-dropzone').forEach(dropzone => {
+            const idx = parseInt(dropzone.getAttribute('data-index'), 10);
+            const fileInput = dropzone.querySelector('.icon-file-input');
+
+            dropzone.addEventListener('click', function(e) {
+              if (e.target !== fileInput) {
+                fileInput.click();
+              }
+            });
+
+            fileInput.addEventListener('change', function(e) {
+              const file = e.target.files && e.target.files[0];
+              if (file) {
+                handleUploadedIcon(file, idx);
+              }
+            });
+
+            dropzone.addEventListener('dragover', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              dropzone.classList.add('border-amber-600', 'bg-amber-100', 'scale-105');
+            });
+
+            dropzone.addEventListener('dragleave', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              dropzone.classList.remove('border-amber-600', 'bg-amber-100', 'scale-105');
+            });
+
+            dropzone.addEventListener('drop', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              dropzone.classList.remove('border-amber-600', 'bg-amber-100', 'scale-105');
+              const file = e.dataTransfer.files && e.dataTransfer.files[0];
+              if (file) {
+                handleUploadedIcon(file, idx);
+              }
+            });
+          });
+        }
+
+        // Add new card button in modal
+        btnAddNewCardInModal.addEventListener('click', function() {
+          const newId = currentSystems.length > 0 ? Math.max(...currentSystems.map(s => s.id || 0)) + 1 : 1;
+          currentSystems.push({
+            id: newId,
+            icon: "📌",
+            name: "Novo Sistema",
+            url: "https://",
+            description: "Acesso à rotina operacional da Divisão Gráfica.",
+            tag: "Operacional"
+          });
+          renderManageForm();
+          updateJsonExportPreview();
+          
+          // Scroll to the new card
+          setTimeout(() => {
+            formCardsContainer.lastElementChild?.scrollIntoView({ behavior: 'smooth' });
+          }, 50);
+        });
+
+        function getUpdatedSystemsFromForm() {
+          const updated = JSON.parse(JSON.stringify(currentSystems));
+          const inputs = formCardsContainer.querySelectorAll('input[data-index]');
+          
+          inputs.forEach(input => {
+            const idx = parseInt(input.getAttribute('data-index'), 10);
+            const field = input.getAttribute('data-field');
+            if (updated[idx]) {
+              if (field === 'icon_emoji') {
+                const val = input.value.trim();
+                // If user typed an emoji, update icon. If empty, keep existing icon (image or previous emoji)
+                if (val) {
+                  updated[idx].icon = val;
+                }
+              } else if (field) {
+                updated[idx][field] = input.value.trim();
+              }
+            }
+          });
+
+          // Fallback to default if somehow icon is missing
+          updated.forEach(item => {
+            if (!item.icon) item.icon = '📄';
+          });
+
+          return updated;
+        }
+
+        btnSaveManage.addEventListener('click', function() {
+          const updated = getUpdatedSystemsFromForm();
+          
+          for (let i = 0; i < updated.length; i++) {
+            if (!updated[i].name) {
+              showToast(`O Sistema #${i + 1} precisa de um nome!`, 'error');
+              return;
+            }
+            if (!updated[i].url) {
+              showToast(`O Sistema #${i + 1} precisa de uma URL válida!`, 'error');
+              return;
+            }
+          }
+
+          currentSystems = updated;
+          saveSystems(currentSystems);
+          renderDashboard();
+          closeManageModal();
+          showToast('Alterações salvas com sucesso no navegador!', 'success');
+        });
+
+        btnResetDefaults.addEventListener('click', function() {
+          if (confirm('Deseja realmente restaurar os 8 links para o padrão oficial da DIGRA?')) {
+            currentSystems = JSON.parse(JSON.stringify(FACTORY_SYSTEMS));
+            saveSystems(currentSystems);
+            renderManageForm();
+            updateJsonExportPreview();
+            renderDashboard();
+            showToast('Padrões de fábrica oficiais restaurados!', 'info');
+          }
+        });
+
+        function updateJsonExportPreview() {
+          const updated = getUpdatedSystemsFromForm();
+          jsonExportTextarea.value = JSON.stringify(updated, null, 2);
+        }
+
+        formCardsContainer.addEventListener('input', updateJsonExportPreview);
+
+        btnCopyJson.addEventListener('click', function() {
+          const updated = getUpdatedSystemsFromForm();
+          const jsonCode = JSON.stringify(updated, null, 2);
+          copyToClipboard(jsonCode, 'Código JSON copiado com sucesso! Pronto para colar no GitHub.');
+          jsonPreviewSection.classList.remove('hidden');
+          jsonExportTextarea.value = jsonCode;
+        });
+
+        btnCopyFromTextarea.addEventListener('click', function() {
+          copyToClipboard(jsonExportTextarea.value, 'JSON copiado!');
+        });
+
+        function copyToClipboard(text, successMsg) {
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => {
+              showToast(successMsg, 'success');
+            }).catch(() => {
+              fallbackCopy(text, successMsg);
+            });
+          } else {
+            fallbackCopy(text, successMsg);
+          }
+        }
+
+        function fallbackCopy(text, successMsg) {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.left = '-9999px';
+          document.body.appendChild(textarea);
+          textarea.focus();
+          textarea.select();
+          try {
+            document.execCommand('copy');
+            showToast(successMsg, 'success');
+          } catch (err) {
+            showToast('Selecione e copie manualmente o JSON no campo aberto.', 'info');
+            jsonPreviewSection.classList.remove('hidden');
+          }
+          document.body.removeChild(textarea);
+        }
+
+        searchBar.addEventListener('input', function(e) {
+          searchQuery = e.target.value;
+          renderDashboard();
+        });
+
+        btnClearSearch.addEventListener('click', function() {
+          searchBar.value = '';
+          searchQuery = '';
+          renderDashboard();
+          searchBar.focus();
+        });
+
+        // Toast notifications
+        function showToast(message, type = 'info') {
+          const container = document.getElementById('toastContainer');
+          const toast = document.createElement('div');
+          
+          let bgClass = 'bg-slate-900 text-white';
+          let icon = 'ℹ️';
+
+          if (type === 'success') {
+            bgClass = 'bg-[#002F6C] text-white border border-amber-400/40';
+            icon = '✅';
+          } else if (type === 'error') {
+            bgClass = 'bg-rose-900 text-white border border-rose-400/30';
+            icon = '⚠️';
+          } else if (type === 'info') {
+            bgClass = 'bg-slate-800 text-white border border-slate-700';
+            icon = '📌';
+          }
+
+          toast.className = `${bgClass} px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center gap-2.5 transition-all duration-300 transform translate-y-2 pointer-events-auto`;
+          toast.innerHTML = `<span>${icon}</span> <span>${escapeHtml(message)}</span>`;
+          
+          container.appendChild(toast);
+
+          requestAnimationFrame(() => {
+            toast.classList.remove('translate-y-2');
+          });
+
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(8px)';
+            setTimeout(() => {
+              if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+              }
+            }, 300);
+          }, 3500);
+        }
+
+        function escapeHtml(str) {
+          if (typeof str !== 'string') return str;
+          return str
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+        }
+
+        // Initialize header logo and handlers
+        initHeaderLogoHandlers();
+
+        // Render initial view
+        renderDashboard();
+
+      })();
+    </script>
+  </body>
+</html>

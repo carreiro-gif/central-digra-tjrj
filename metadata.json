@@ -1,0 +1,6 @@
+{
+  "name": "TJRJ • DIGRA - Central de Sistemas e Produção",
+  "description": "Dashboard Hub da Divisão Gráfica do TJRJ para acesso centralizado a sistemas operacionais e planilhas de produção.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
