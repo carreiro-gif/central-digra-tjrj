@@ -373,6 +373,7 @@ export async function saveHeaderLogoToFirestore(logoDataUrl: string | null): Pro
  * Interface dos Links de Acesso Rápido do Cabeçalho
  */
 export interface HeaderLinks {
+  outlook: string;
   word: string;
   excel: string;
   teams: string;
@@ -383,6 +384,7 @@ export interface HeaderLinks {
  * sem redirecionamentos indesejados para páginas do Copilot.
  */
 export const DEFAULT_HEADER_LINKS: HeaderLinks = {
+  outlook: 'https://outlook.cloud.microsoft/mail/',
   word: 'https://word.cloud.microsoft/',
   excel: 'https://excel.cloud.microsoft/',
   teams: 'https://teams.cloud.microsoft/'
@@ -390,7 +392,7 @@ export const DEFAULT_HEADER_LINKS: HeaderLinks = {
 
 /**
  * Escuta em tempo real a coleção "links-header" no Firestore.
- * Sincroniza instantaneamente as URLs do Word, Excel e Teams entre todos os computadores.
+ * Sincroniza instantaneamente as URLs do Outlook, Word, Excel e Teams entre todos os computadores.
  */
 export function subscribeToHeaderLinks(
   onUpdate: (links: HeaderLinks) => void,
@@ -408,6 +410,7 @@ export function subscribeToHeaderLinks(
       if (snapshot.exists()) {
         const data = snapshot.data();
         onUpdate({
+          outlook: data.outlook || DEFAULT_HEADER_LINKS.outlook,
           word: data.word || DEFAULT_HEADER_LINKS.word,
           excel: data.excel || DEFAULT_HEADER_LINKS.excel,
           teams: data.teams || DEFAULT_HEADER_LINKS.teams
@@ -433,7 +436,7 @@ export function subscribeToHeaderLinks(
 
 /**
  * Salva as URLs do cabeçalho na coleção "links-header" no Firestore
- * Mantém tanto o documento consolidado "shortcuts" quanto os documentos individuais "word", "excel", "teams"
+ * Mantém tanto o documento consolidado "shortcuts" quanto os documentos individuais "outlook", "word", "excel", "teams"
  */
 export async function saveHeaderLinksToFirestore(links: HeaderLinks): Promise<boolean> {
   if (!db) {
@@ -446,6 +449,7 @@ export async function saveHeaderLinksToFirestore(links: HeaderLinks): Promise<bo
   // Documento consolidado na coleção links-header
   const shortcutsDocRef = doc(db, 'links-header', 'shortcuts');
   batch.set(shortcutsDocRef, {
+    outlook: links.outlook || DEFAULT_HEADER_LINKS.outlook,
     word: links.word || DEFAULT_HEADER_LINKS.word,
     excel: links.excel || DEFAULT_HEADER_LINKS.excel,
     teams: links.teams || DEFAULT_HEADER_LINKS.teams,
@@ -453,6 +457,14 @@ export async function saveHeaderLinksToFirestore(links: HeaderLinks): Promise<bo
   }, { merge: true });
 
   // Documentos individuais por serviço na coleção links-header
+  const outlookRef = doc(db, 'links-header', 'outlook');
+  batch.set(outlookRef, {
+    id: 'outlook',
+    name: 'Microsoft Outlook Online',
+    url: links.outlook || DEFAULT_HEADER_LINKS.outlook,
+    updatedAt: now
+  }, { merge: true });
+
   const wordRef = doc(db, 'links-header', 'word');
   batch.set(wordRef, {
     id: 'word',

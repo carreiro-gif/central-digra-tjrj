@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Background Gradient: TJRJ Navy -->
+    <!-- Background Gradient: TJRJ Navy Harmonizado com o Cabeçalho -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#003577"/>
-      <stop offset="50%" stop-color="#002353"/>
-      <stop offset="100%" stop-color="#001433"/>
+      <stop offset="0%" stop-color="#003D8C"/>
+      <stop offset="50%" stop-color="#002F6C"/>
+      <stop offset="100%" stop-color="#00214D"/>
     </linearGradient>
 
     <!-- Gold Accent Gradient -->
@@ -16,16 +16,16 @@
 
     <!-- Subtle Drop Shadow -->
     <filter id="shadow" x="-10%" y="-10%" width="125%" height="125%">
-      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.35"/>
     </filter>
   </defs>
 
-  <!-- Rounded App Icon Background -->
-  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+  <!-- Circular App Icon Background (100% Redondo Sem Cantos Quadrados) -->
+  <circle cx="256" cy="256" r="256" fill="url(#bgGrad)"/>
 
-  <!-- Gold Border Ring -->
-  <rect x="14" y="14" width="484" height="484" rx="98" fill="none" stroke="url(#goldGrad)" stroke-width="8" opacity="0.95"/>
-  <rect x="26" y="26" width="460" height="460" rx="86" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.2"/>
+  <!-- Gold Border Ring Circular -->
+  <circle cx="256" cy="256" r="246" fill="none" stroke="url(#goldGrad)" stroke-width="8" opacity="0.95"/>
+  <circle cx="256" cy="256" r="236" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.2"/>
 
   <!-- Main Insignia Group with Shadow -->
   <g filter="url(#shadow)" transform="translate(0, -10)">
@@ -58,8 +58,8 @@
 
   <!-- Typography Banner: TJRJ • DIGRA -->
   <!-- Background Badge for Text -->
-  <rect x="76" y="348" width="360" height="72" rx="20" fill="#00193E" stroke="url(#goldGrad)" stroke-width="3"/>
-  <rect x="80" y="352" width="352" height="64" rx="16" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.15"/>
+  <rect x="86" y="348" width="340" height="72" rx="20" fill="#001F48" stroke="url(#goldGrad)" stroke-width="3"/>
+  <rect x="90" y="352" width="332" height="64" rx="16" fill="none" stroke="#FFFFFF" stroke-width="1" opacity="0.15"/>
 
   <!-- DIGRA Main Title -->
   <text x="256" y="394" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="34" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="4">

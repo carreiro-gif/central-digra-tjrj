@@ -136,30 +136,18 @@
     <!-- Top Bar / Institutional Header (Expansivo para telas grandes) -->
     <header class="sticky top-0 z-30 bg-[#002F6C] text-white shadow-md border-b border-[#001f48]">
       <div class="max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-10">
-        <div class="flex items-center justify-between h-20">
+        <div class="flex items-center justify-between min-h-[5.5rem] py-2 sm:py-2.5">
           
           <!-- Brand & Hierarchy + Acesso Rápido Lado a Lado -->
           <div class="flex items-center gap-3 sm:gap-4 lg:gap-6 flex-wrap">
-            <!-- TJRJ Heraldic Scale & Custom DIGRA Logo Box (Clique ou arraste arquivo PNG) -->
-            <div 
-              id="headerLogoBox"
-              class="relative group w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400/20 to-white/10 border border-amber-300/40 hover:border-amber-400 flex items-center justify-center shrink-0 shadow-inner overflow-hidden cursor-pointer transition-all"
-              title="Clique ou arraste sua logo DIGRA (PNG) para trocar o ícone do cabeçalho"
-            >
-              <div id="headerLogoContent" class="w-full h-full flex items-center justify-center p-1 pointer-events-none">
-                <!-- SVG or Custom IMG via JavaScript -->
-              </div>
-
-              <!-- Hover overlay with upload icon -->
-              <div class="absolute inset-0 bg-[#001f48]/85 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-amber-200 pointer-events-none">
-                <svg class="w-4 h-4 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-                </svg>
-                <span class="text-[8px] font-bold leading-tight">Trocar</span>
-              </div>
-
-              <input type="file" id="headerLogoFileInput" accept="image/png,image/jpeg,image/jpg,image/svg+xml,.png,.jpg,.jpeg,.svg,.ico" class="hidden" />
-            </div>
+            <!-- Tag <img> da logo completamente solta no HTML, sem container ou fundo -->
+            <img 
+              id="headerLogoImg" 
+              src="/logo-branca.png" 
+              alt="Logo TJRJ DIGRA" 
+              class="h-16 w-16 object-contain invert brightness-200"
+              style="filter: invert(1) brightness(2);"
+            />
 
             <!-- Texto Institucional -->
             <div class="shrink-0">
@@ -180,7 +168,27 @@
                 Acesso Rápido:
               </span>
 
-              <!-- 1. Microsoft Word Online -->
+              <!-- 1. Microsoft Outlook Online (E-mail Institucional) -->
+              <a 
+                id="btnHeaderOutlook"
+                href="https://outlook.cloud.microsoft/mail/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="group inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-white/95 hover:text-white bg-white/5 hover:bg-[#0078D4]/35 border border-white/20 hover:border-[#0078D4]/70 rounded-lg transition-all duration-150 shadow-2xs hover:shadow-xs focus:outline-none focus:ring-1 focus:ring-sky-300"
+                title="Microsoft Outlook Online (https://outlook.cloud.microsoft/mail/)"
+              >
+                <!-- Outlook SVG Icon -->
+                <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="3" width="20" height="18" rx="3" fill="#0078D4" stroke="#2896F3" stroke-width="0.8"/>
+                  <path d="M4 6.5L12 12.5L20 6.5" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+                  <circle cx="10" cy="12.5" r="4.5" fill="#005A9E"/>
+                  <circle cx="10" cy="12.5" r="4.5" stroke="white" stroke-width="0.8"/>
+                  <path d="M10 10C8.6 10 7.8 11.1 7.8 12.5C7.8 13.9 8.6 15 10 15C11.4 15 12.2 13.9 12.2 12.5C12.2 11.1 11.4 10 10 10ZM10 13.8C9.3 13.8 8.8 13.2 8.8 12.5C8.8 11.8 9.3 11.2 10 11.2C10.7 11.2 11.2 11.8 11.2 12.5C11.2 13.2 10.7 13.8 10 13.8Z" fill="white"/>
+                </svg>
+                <span class="font-semibold text-[12px] tracking-wide">Outlook</span>
+              </a>
+
+              <!-- 2. Microsoft Word Online -->
               <a 
                 id="btnHeaderWord"
                 href="https://word.cloud.microsoft/" 
@@ -483,7 +491,7 @@
                     </span>
                   </div>
                   <p class="text-xs text-slate-600 mt-0.5">
-                    Configure as URLs diretas do Word, Excel e Teams que aparecem no menu superior para todos os usuários
+                    Configure as URLs diretas do Outlook, Word, Excel e Teams que aparecem no menu superior para todos os usuários
                   </p>
                 </div>
               </div>
@@ -498,8 +506,36 @@
               </button>
             </div>
 
-            <!-- 3 Campos de Texto para URLs -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <!-- 4 Campos de Texto para URLs -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <!-- Outlook URL -->
+              <div class="space-y-1.5 bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs">
+                <div class="flex items-center justify-between">
+                  <label for="inputHeaderOutlook" class="flex items-center gap-1.5 text-xs font-bold text-slate-800">
+                    <span class="w-4 h-4 rounded bg-[#0078D4] text-white flex items-center justify-center text-[9px] font-black">O</span>
+                    <span>URL do Outlook</span>
+                  </label>
+                  <a 
+                    id="previewHeaderOutlookLink" 
+                    href="https://outlook.cloud.microsoft/mail/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="text-[10px] font-semibold text-[#0078D4] hover:underline"
+                    title="Testar este link"
+                  >
+                    Testar ↗
+                  </a>
+                </div>
+                <input 
+                  type="url" 
+                  id="inputHeaderOutlook" 
+                  value="https://outlook.cloud.microsoft/mail/"
+                  placeholder="https://outlook.cloud.microsoft/mail/" 
+                  class="w-full px-3 py-2 text-xs font-mono bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0078D4] focus:border-transparent transition-all"
+                  required
+                />
+              </div>
+
               <!-- Word URL -->
               <div class="space-y-1.5 bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs">
                 <div class="flex items-center justify-between">
@@ -647,9 +683,9 @@
                 type="button" 
                 id="btnResetHeaderLogo"
                 class="text-xs font-medium text-slate-600 hover:text-rose-700 px-3 py-1.5 rounded-lg border border-slate-300 hover:border-rose-300 bg-white hover:bg-rose-50 transition-colors cursor-pointer"
-                title="Restaurar a balança institucional padrão"
+                title="Restaurar a logo oficial da DIGRA"
               >
-                Restaurar Balança
+                Restaurar Logo Oficial
               </button>
             </div>
           </div>
@@ -857,6 +893,7 @@
         'use strict';
 
         const DEFAULT_HEADER_LINKS = {
+          outlook: 'https://outlook.cloud.microsoft/mail/',
           word: 'https://word.cloud.microsoft/',
           excel: 'https://excel.cloud.microsoft/',
           teams: 'https://teams.cloud.microsoft/'
@@ -874,6 +911,7 @@
               const parsed = JSON.parse(stored);
               if (parsed && typeof parsed === 'object') {
                 return {
+                  outlook: parsed.outlook || DEFAULT_HEADER_LINKS.outlook,
                   word: parsed.word || DEFAULT_HEADER_LINKS.word,
                   excel: parsed.excel || DEFAULT_HEADER_LINKS.excel,
                   teams: parsed.teams || DEFAULT_HEADER_LINKS.teams
@@ -890,10 +928,15 @@
 
         function updateHeaderLinksUI(links) {
           if (!links) return;
+          const btnOutlook = document.getElementById('btnHeaderOutlook');
           const btnWord = document.getElementById('btnHeaderWord');
           const btnExcel = document.getElementById('btnHeaderExcel');
           const btnTeams = document.getElementById('btnHeaderTeams');
 
+          if (btnOutlook && links.outlook) {
+            btnOutlook.setAttribute('href', links.outlook);
+            btnOutlook.setAttribute('title', `Microsoft Outlook Online (${links.outlook})`);
+          }
           if (btnWord && links.word) {
             btnWord.setAttribute('href', links.word);
             btnWord.setAttribute('title', `Microsoft Word Online (${links.word})`);
@@ -907,9 +950,11 @@
             btnTeams.setAttribute('title', `Microsoft Teams (${links.teams})`);
           }
 
+          const prevOutlook = document.getElementById('previewHeaderOutlookLink');
           const prevWord = document.getElementById('previewHeaderWordLink');
           const prevExcel = document.getElementById('previewHeaderExcelLink');
           const prevTeams = document.getElementById('previewHeaderTeamsLink');
+          if (prevOutlook && links.outlook) prevOutlook.setAttribute('href', links.outlook);
           if (prevWord && links.word) prevWord.setAttribute('href', links.word);
           if (prevExcel && links.excel) prevExcel.setAttribute('href', links.excel);
           if (prevTeams && links.teams) prevTeams.setAttribute('href', links.teams);
@@ -917,17 +962,21 @@
 
         function syncHeaderInputsUI(links) {
           if (!links) return;
+          const inputOutlook = document.getElementById('inputHeaderOutlook');
           const inputWord = document.getElementById('inputHeaderWord');
           const inputExcel = document.getElementById('inputHeaderExcel');
           const inputTeams = document.getElementById('inputHeaderTeams');
 
+          if (inputOutlook && document.activeElement !== inputOutlook) inputOutlook.value = links.outlook || DEFAULT_HEADER_LINKS.outlook;
           if (inputWord && document.activeElement !== inputWord) inputWord.value = links.word || DEFAULT_HEADER_LINKS.word;
           if (inputExcel && document.activeElement !== inputExcel) inputExcel.value = links.excel || DEFAULT_HEADER_LINKS.excel;
           if (inputTeams && document.activeElement !== inputTeams) inputTeams.value = links.teams || DEFAULT_HEADER_LINKS.teams;
 
+          const prevOutlook = document.getElementById('previewHeaderOutlookLink');
           const prevWord = document.getElementById('previewHeaderWordLink');
           const prevExcel = document.getElementById('previewHeaderExcelLink');
           const prevTeams = document.getElementById('previewHeaderTeamsLink');
+          if (prevOutlook && links.outlook) prevOutlook.setAttribute('href', links.outlook);
           if (prevWord && links.word) prevWord.setAttribute('href', links.word);
           if (prevExcel && links.excel) prevExcel.setAttribute('href', links.excel);
           if (prevTeams && links.teams) prevTeams.setAttribute('href', links.teams);
@@ -1048,15 +1097,24 @@
 
         function updateHeaderLogos() {
           const customLogo = getCustomHeaderLogo();
-          const headerContent = document.getElementById('headerLogoContent');
+          const headerImg = document.getElementById('headerLogoImg');
           const modalPreview = document.getElementById('modalHeaderLogoPreview');
 
-          const markup = customLogo 
-            ? `<img src="${escapeHtml(customLogo)}" alt="Logo DIGRA" class="w-full h-full object-contain select-none pointer-events-none rounded-lg" onerror="this.onerror=null; this.parentElement.innerHTML=DEFAULT_BALANCE_SVG;">`
-            : DEFAULT_BALANCE_SVG;
+          const logoSrc = customLogo || '/logo-branca.png';
 
-          if (headerContent) headerContent.innerHTML = markup;
-          if (modalPreview) modalPreview.innerHTML = markup;
+          if (headerImg) {
+            headerImg.src = logoSrc;
+            headerImg.className = 'h-16 w-16 object-contain invert brightness-200';
+            headerImg.style.filter = 'invert(1) brightness(2)';
+            headerImg.onerror = function() {
+              this.onerror = null;
+              this.src = '/icon.svg';
+              this.style.filter = '';
+            };
+          }
+          if (modalPreview) {
+            modalPreview.innerHTML = `<img src="${escapeHtml(logoSrc)}" alt="Logo DIGRA" class="w-full h-full object-contain bg-transparent select-none pointer-events-none" style="filter: invert(1) brightness(2);" onerror="this.onerror=null; this.src='/icon.svg'; this.style.filter='';">`;
+          }
         }
 
         async function saveCustomHeaderLogo(dataUrl) {
@@ -1072,7 +1130,7 @@
                 console.warn('Erro ao sincronizar logo no Firestore:', err);
               });
             }
-            showToast(dataUrl ? 'Logotipo transparente da DIGRA salvo no sistema!' : 'Balança oficial restaurada!', 'success');
+            showToast(dataUrl ? 'Logotipo da DIGRA salvo e sincronizado no sistema!' : 'Logo oficial da DIGRA restaurada!', 'success');
           } catch (e) {
             showToast('Erro ao salvar imagem. Tente um arquivo mais leve.', 'error');
           }
@@ -1085,7 +1143,7 @@
             if (isFirebaseConfigured) {
               await saveHeaderLogoToFirestore(null).catch(() => {});
             }
-            showToast('Balança oficial restaurada no cabeçalho!', 'info');
+            showToast('Logo oficial redonda da DIGRA restaurada com sucesso!', 'info');
           } catch (e) {
             console.error(e);
           }
@@ -1185,36 +1243,31 @@
         }
 
         function initHeaderLogoHandlers() {
-          const headerLogoBox = document.getElementById('headerLogoBox');
-          const headerLogoFileInput = document.getElementById('headerLogoFileInput');
+          const headerLogoImg = document.getElementById('headerLogoImg');
           const modalDropzone = document.getElementById('modalHeaderLogoDropzone');
           const modalFileInput = document.getElementById('modalHeaderLogoFileInput');
           const btnResetLogo = document.getElementById('btnResetHeaderLogo');
           const btnMakeTransparent = document.getElementById('btnMakeTransparentNow');
 
-          // Header Box Click & Drag
-          if (headerLogoBox && headerLogoFileInput) {
-            headerLogoBox.addEventListener('click', (e) => {
-              if (e.target !== headerLogoFileInput) headerLogoFileInput.click();
+          // Permite arrastar ou clicar na imagem solta da logo para alterar
+          if (headerLogoImg && modalFileInput) {
+            headerLogoImg.addEventListener('click', () => {
+              modalFileInput.click();
             });
-            headerLogoFileInput.addEventListener('change', (e) => {
-              const file = e.target.files && e.target.files[0];
-              if (file) processHeaderLogoFile(file);
-            });
-            headerLogoBox.addEventListener('dragover', (e) => {
+            headerLogoImg.addEventListener('dragover', (e) => {
               e.preventDefault();
               e.stopPropagation();
-              headerLogoBox.classList.add('scale-110', 'border-amber-400');
+              headerLogoImg.classList.add('scale-105');
             });
-            headerLogoBox.addEventListener('dragleave', (e) => {
+            headerLogoImg.addEventListener('dragleave', (e) => {
               e.preventDefault();
               e.stopPropagation();
-              headerLogoBox.classList.remove('scale-110', 'border-amber-400');
+              headerLogoImg.classList.remove('scale-105');
             });
-            headerLogoBox.addEventListener('drop', (e) => {
+            headerLogoImg.addEventListener('drop', (e) => {
               e.preventDefault();
               e.stopPropagation();
-              headerLogoBox.classList.remove('scale-110', 'border-amber-400');
+              headerLogoImg.classList.remove('scale-105');
               const file = e.dataTransfer.files && e.dataTransfer.files[0];
               if (file) processHeaderLogoFile(file);
             });
@@ -1275,17 +1328,17 @@
                  /\.(png|jpe?g|ico|svg|webp|gif)(\?.*)?$/i.test(str);
         }
 
-        // Helper: Render icon either as image or emoji/text with standardized prominent sizing (sem caixa azul em volta)
+        // Helper: Render icon either as image or emoji/text with standardized prominent sizing (regra obrigatória: bg-transparent, sem bordas)
         function renderIconMarkup(iconValue, extraImgClass = '', extraSpanClass = '') {
           const imgSize = extraImgClass || 'w-16 h-16 sm:w-20 sm:h-20';
           const textSize = extraSpanClass || 'text-5xl sm:text-6xl';
           if (!iconValue) {
-            return `<span class="${textSize} select-none leading-none">📄</span>`;
+            return `<span class="${textSize} bg-transparent border-0 p-0 select-none leading-none">📄</span>`;
           }
           if (isImageIcon(iconValue)) {
-            return `<img src="${escapeHtml(iconValue)}" alt="Ícone" class="${imgSize} object-contain select-none pointer-events-none drop-shadow-xs" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'${textSize} select-none leading-none\\'>📄</span>';">`;
+            return `<img src="${escapeHtml(iconValue)}" alt="Ícone" class="${imgSize} object-contain bg-transparent border-0 p-0 select-none pointer-events-none drop-shadow-xs" onerror="this.onerror=null; this.parentElement.innerHTML='<span class=\\'${textSize} bg-transparent border-0 p-0 select-none leading-none\\'>📄</span>';">`;
           }
-          return `<span class="${textSize} select-none leading-none drop-shadow-xs">${escapeHtml(iconValue)}</span>`;
+          return `<span class="${textSize} bg-transparent border-0 p-0 select-none leading-none drop-shadow-xs">${escapeHtml(iconValue)}</span>`;
         }
 
         // =========================================================================
@@ -1352,10 +1405,10 @@
                   </div>
                 </div>
 
-                <!-- Center Content: Ícone Direto (Sem quadro azul em volta, padronizado) + Name + Description -->
+                <!-- Center Content: Ícone Flutuante com Fundo Transparente Obrigatório + Name + Description -->
                 <div class="flex flex-col items-center justify-center my-auto w-full py-1">
-                  <!-- Ícones todos padronizados no mesmo tamanho, sem o quadrado azul em volta -->
-                  <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center shrink-0 mb-3 transition-transform duration-200 group-hover:scale-110">
+                  <!-- Container do ícone: 100% bg-transparent, sem bordas, sem cor de fundo -->
+                  <div class="w-16 h-16 sm:w-20 sm:h-20 bg-transparent border-0 p-0 shadow-none flex items-center justify-center shrink-0 mb-3 transition-transform duration-200 group-hover:scale-110">
                     ${renderIconMarkup(item.icon, 'w-16 h-16 sm:w-20 sm:h-20', 'text-5xl sm:text-6xl')}
                   </div>
 
@@ -1401,9 +1454,9 @@
                   <div class="w-4"></div>
                 </div>
 
-                <!-- Center Content: Ícone Direto Padronizado sem caixa azul -->
+                <!-- Center Content: Ícone Flutuante com Fundo Transparente Obrigatório -->
                 <div class="flex flex-col items-center justify-center my-auto">
-                  <div class="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center mb-3 text-[#002F6C] group-hover:scale-110 transition-transform">
+                  <div class="w-16 h-16 sm:w-20 sm:h-20 bg-transparent border-0 p-0 shadow-none flex items-center justify-center mb-3 text-[#002F6C] group-hover:scale-110 transition-transform">
                     <svg class="w-14 h-14 sm:w-16 sm:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -1941,15 +1994,18 @@
           }
 
           // Leitura dos links de acesso rápido do cabeçalho
+          const inputOutlook = document.getElementById('inputHeaderOutlook');
           const inputWord = document.getElementById('inputHeaderWord');
           const inputExcel = document.getElementById('inputHeaderExcel');
           const inputTeams = document.getElementById('inputHeaderTeams');
 
+          const newOutlook = (inputOutlook ? inputOutlook.value.trim() : '') || DEFAULT_HEADER_LINKS.outlook;
           const newWord = (inputWord ? inputWord.value.trim() : '') || DEFAULT_HEADER_LINKS.word;
           const newExcel = (inputExcel ? inputExcel.value.trim() : '') || DEFAULT_HEADER_LINKS.excel;
           const newTeams = (inputTeams ? inputTeams.value.trim() : '') || DEFAULT_HEADER_LINKS.teams;
 
           const updatedHeaderLinks = {
+            outlook: newOutlook,
             word: newWord,
             excel: newExcel,
             teams: newTeams
@@ -2221,14 +2277,22 @@
         renderDashboard();
 
         function initHeaderLinksListeners() {
+          const inputOutlook = document.getElementById('inputHeaderOutlook');
           const inputWord = document.getElementById('inputHeaderWord');
           const inputExcel = document.getElementById('inputHeaderExcel');
           const inputTeams = document.getElementById('inputHeaderTeams');
+          const prevOutlook = document.getElementById('previewHeaderOutlookLink');
           const prevWord = document.getElementById('previewHeaderWordLink');
           const prevExcel = document.getElementById('previewHeaderExcelLink');
           const prevTeams = document.getElementById('previewHeaderTeamsLink');
           const btnReset = document.getElementById('btnResetHeaderLinks');
 
+          if (inputOutlook && prevOutlook) {
+            inputOutlook.addEventListener('input', () => {
+              const val = inputOutlook.value.trim() || DEFAULT_HEADER_LINKS.outlook;
+              prevOutlook.setAttribute('href', val);
+            });
+          }
           if (inputWord && prevWord) {
             inputWord.addEventListener('input', () => {
               const val = inputWord.value.trim() || DEFAULT_HEADER_LINKS.word;
@@ -2250,9 +2314,11 @@
 
           if (btnReset) {
             btnReset.addEventListener('click', () => {
+              if (inputOutlook) inputOutlook.value = DEFAULT_HEADER_LINKS.outlook;
               if (inputWord) inputWord.value = DEFAULT_HEADER_LINKS.word;
               if (inputExcel) inputExcel.value = DEFAULT_HEADER_LINKS.excel;
               if (inputTeams) inputTeams.value = DEFAULT_HEADER_LINKS.teams;
+              if (prevOutlook) prevOutlook.setAttribute('href', DEFAULT_HEADER_LINKS.outlook);
               if (prevWord) prevWord.setAttribute('href', DEFAULT_HEADER_LINKS.word);
               if (prevExcel) prevExcel.setAttribute('href', DEFAULT_HEADER_LINKS.excel);
               if (prevTeams) prevTeams.setAttribute('href', DEFAULT_HEADER_LINKS.teams);
