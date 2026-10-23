@@ -368,3 +368,125 @@ export async function saveHeaderLogoToFirestore(logoDataUrl: string | null): Pro
     await deleteDoc(logoDocRef).catch(() => {});
   }
 }
+
+/**
+ * Interface dos Links de Acesso Rápido do Cabeçalho
+ */
+export interface HeaderLinks {
+  word: string;
+  excel: string;
+  teams: string;
+}
+
+/**
+ * Links oficiais de fábrica da Microsoft direto na nuvem (.cloud.microsoft)
+ * sem redirecionamentos indesejados para páginas do Copilot.
+ */
+export const DEFAULT_HEADER_LINKS: HeaderLinks = {
+  word: 'https://word.cloud.microsoft/',
+  excel: 'https://excel.cloud.microsoft/',
+  teams: 'https://teams.cloud.microsoft/'
+};
+
+/**
+ * Escuta em tempo real a coleção "links-header" no Firestore.
+ * Sincroniza instantaneamente as URLs do Word, Excel e Teams entre todos os computadores.
+ */
+export function subscribeToHeaderLinks(
+  onUpdate: (links: HeaderLinks) => void,
+  onError?: (error: Error) => void
+): () => void {
+  if (!db) {
+    return () => {};
+  }
+
+  const shortcutsDocRef = doc(db, 'links-header', 'shortcuts');
+
+  const unsubscribe = onSnapshot(
+    shortcutsDocRef,
+    async (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        onUpdate({
+          word: data.word || DEFAULT_HEADER_LINKS.word,
+          excel: data.excel || DEFAULT_HEADER_LINKS.excel,
+          teams: data.teams || DEFAULT_HEADER_LINKS.teams
+        });
+      } else {
+        // Se ainda não existir no Firestore, inicia com os links oficiais de fábrica
+        try {
+          await saveHeaderLinksToFirestore(DEFAULT_HEADER_LINKS);
+        } catch (e) {
+          console.warn('Iniciando coleção links-header com padrões:', e);
+        }
+        onUpdate(DEFAULT_HEADER_LINKS);
+      }
+    },
+    (error) => {
+      console.warn('Erro ao escutar links-header no Firestore:', error);
+      if (onError) onError(error);
+    }
+  );
+
+  return unsubscribe;
+}
+
+/**
+ * Salva as URLs do cabeçalho na coleção "links-header" no Firestore
+ * Mantém tanto o documento consolidado "shortcuts" quanto os documentos individuais "word", "excel", "teams"
+ */
+export async function saveHeaderLinksToFirestore(links: HeaderLinks): Promise<boolean> {
+  if (!db) {
+    throw new Error('Firebase não configurado.');
+  }
+
+  const batch = writeBatch(db);
+  const now = new Date().toISOString();
+
+  // Documento consolidado na coleção links-header
+  const shortcutsDocRef = doc(db, 'links-header', 'shortcuts');
+  batch.set(shortcutsDocRef, {
+    word: links.word || DEFAULT_HEADER_LINKS.word,
+    excel: links.excel || DEFAULT_HEADER_LINKS.excel,
+    teams: links.teams || DEFAULT_HEADER_LINKS.teams,
+    updatedAt: now
+  }, { merge: true });
+
+  // Documentos individuais por serviço na coleção links-header
+  const wordRef = doc(db, 'links-header', 'word');
+  batch.set(wordRef, {
+    id: 'word',
+    name: 'Microsoft Word Online',
+    url: links.word || DEFAULT_HEADER_LINKS.word,
+    updatedAt: now
+  }, { merge: true });
+
+  const excelRef = doc(db, 'links-header', 'excel');
+  batch.set(excelRef, {
+    id: 'excel',
+    name: 'Microsoft Excel Online',
+    url: links.excel || DEFAULT_HEADER_LINKS.excel,
+    updatedAt: now
+  }, { merge: true });
+
+  const teamsRef = doc(db, 'links-header', 'teams');
+  batch.set(teamsRef, {
+    id: 'teams',
+    name: 'Microsoft Teams',
+    url: links.teams || DEFAULT_HEADER_LINKS.teams,
+    updatedAt: now
+  }, { merge: true });
+
+  await batch.commit();
+  return true;
+}
+
+/**
+ * Restaura as URLs oficiais de fábrica (.cloud.microsoft) na coleção links-header
+ */
+export async function restoreDefaultHeaderLinksToFirestore(): Promise<void> {
+  if (!db) {
+    throw new Error('Firebase não configurado.');
+  }
+  await saveHeaderLinksToFirestore(DEFAULT_HEADER_LINKS);
+}
